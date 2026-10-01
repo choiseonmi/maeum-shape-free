@@ -1,787 +1,172 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MY MONEY TYPE | 소비성향 테스트</title>
-  <meta name="description" content="나의 소비습관과 선택 기준을 가볍게 알아보는 자기이해 테스트입니다.">
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#f7f5f0;
-      --card:#fff;
-      --text:#222;
-      --muted:#777;
-      --line:#e8e3dc;
-      --dark:#222;
-      --radius:24px;
-    }
-    body{
-      font-family:Arial,"Noto Sans KR",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.6;
-    }
-    button{font:inherit}
-    [hidden]{display:none!important}
-    .wrap{
-      width:min(760px,calc(100% - 32px));
-      margin:0 auto;
-    }
-
-    /* intro */
-    .intro{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:60px 0;
-    }
-    .intro-card{
-      width:100%;
-      background:var(--card);
-      border-radius:32px;
-      padding:72px 42px;
-      text-align:center;
-      box-shadow:0 12px 40px rgba(0,0,0,.04);
-    }
-    .eyebrow{
-      font-size:12px;
-      letter-spacing:.18em;
-      color:#999;
-      margin-bottom:18px;
-    }
-    .intro h1{
-      font-size:48px;
-      line-height:1.15;
-      margin-bottom:18px;
-    }
-    .intro-sub{
-      font-size:20px;
-      font-weight:700;
-      margin-bottom:18px;
-    }
-    .intro-desc{
-      max-width:520px;
-      margin:0 auto;
-      color:#666;
-      line-height:1.8;
-    }
-    .intro-note{
-      margin-top:26px;
-      font-size:13px;
-      color:#999;
-    }
-    .primary-btn{
-      margin-top:34px;
-      width:100%;
-      max-width:360px;
-      padding:18px 24px;
-      border:0;
-      border-radius:14px;
-      background:var(--dark);
-      color:#fff;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    /* test */
-    .test-page{
-      min-height:100vh;
-      padding:48px 0 80px;
-    }
-    .test-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:18px;
-      color:#777;
-      font-size:13px;
-    }
-    .progress{
-      height:8px;
-      background:#e7e2da;
-      border-radius:999px;
-      overflow:hidden;
-      margin-bottom:42px;
-    }
-    .progress-fill{
-      height:100%;
-      width:0;
-      background:#222;
-      transition:.25s ease;
-    }
-    .question-card{
-      background:#fff;
-      border-radius:28px;
-      padding:52px 34px;
-      box-shadow:0 10px 36px rgba(0,0,0,.035);
-    }
-    .question-card h2{
-      font-size:28px;
-      line-height:1.5;
-      text-align:center;
-      margin-bottom:36px;
-      word-break:keep-all;
-    }
-    .answers{
-      display:grid;
-      gap:10px;
-    }
-    .answer-btn{
-      border:1px solid var(--line);
-      background:#fff;
-      padding:17px 16px;
-      border-radius:14px;
-      cursor:pointer;
-      transition:.15s ease;
-    }
-    .answer-btn:hover,
-    .answer-btn.on{
-      background:#222;
-      color:#fff;
-      border-color:#222;
-    }
-    .test-nav{
-      display:flex;
-      justify-content:space-between;
-      margin-top:18px;
-    }
-    .ghost-btn{
-      border:0;
-      background:transparent;
-      color:#777;
-      padding:10px 0;
-      cursor:pointer;
-    }
-
-    /* result */
-    .result-page{
-      padding:70px 0 110px;
-    }
-    .result-hero{
-      text-align:center;
-      padding:64px 30px;
-      background:#fff;
-      border-radius:30px;
-      box-shadow:0 10px 36px rgba(0,0,0,.035);
-    }
-    .result-hero h2{
-      font-size:16px;
-      font-weight:500;
-      margin-top:12px;
-      color:#777;
-    }
-    .result-hero h3{
-      font-size:42px;
-      margin-top:8px;
-    }
-    .result-slogan{
-      margin-top:18px;
-      font-size:21px;
-      font-weight:700;
-    }
-    .result-summary{
-      max-width:540px;
-      margin:16px auto 0;
-      color:#666;
-    }
-    .result-section{margin-top:58px}
-    .section-title{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:22px;
-    }
-    .section-title span{
-      color:#aaa;
-      font-size:12px;
-    }
-    .section-title h4{
-      font-size:22px;
-    }
-    .top3-item,.balance-item{margin-bottom:20px}
-    .top3-head,.balance-head{
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:8px;
-    }
-    .bar{
-      height:9px;
-      background:#e5e1da;
-      border-radius:999px;
-      overflow:hidden;
-    }
-    .bar-fill{
-      height:100%;
-      background:#222;
-      border-radius:999px;
-      width:0;
-    }
-    .quick-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    .quick-card,.text-card{
-      background:#fff;
-      border-radius:20px;
-      padding:26px;
-    }
-    .quick-label{
-      display:block;
-      color:#aaa;
-      font-size:11px;
-      letter-spacing:.1em;
-      margin-bottom:16px;
-    }
-    .quick-card p{
-      margin-top:8px;
-      color:#666;
-    }
-    .keyword-list{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .keyword-list span{
-      background:#fff;
-      border-radius:999px;
-      padding:10px 14px;
-      font-size:14px;
-    }
-    .text-card{
-      line-height:1.8;
-      color:#555;
-    }
-    .wallet-message{
-      margin-top:58px;
-      padding:46px 28px;
-      text-align:center;
-      border-radius:26px;
-      background:#222;
-      color:#fff;
-    }
-    .wallet-message span{
-      font-size:11px;
-      letter-spacing:.16em;
-      opacity:.55;
-    }
-    .wallet-message p{
-      margin-top:16px;
-      font-size:23px;
-      line-height:1.55;
-    }
-    .tip-item{
-      display:flex;
-      gap:18px;
-      padding:18px 0;
-      border-bottom:1px solid #ddd7cf;
-    }
-    .tip-item span{color:#aaa;font-size:12px}
-    .result-buttons{
-      display:grid;
-      gap:10px;
-      margin-top:60px;
-    }
-    .result-buttons button{
-      border:0;
-      padding:17px;
-      border-radius:13px;
-      cursor:pointer;
-    }
-    .result-buttons .dark{background:#222;color:#fff}
-    .result-buttons .light{background:#fff;color:#222}
-    .disclaimer{
-      margin-top:28px;
-      font-size:12px;
-      color:#999;
-      text-align:center;
-      line-height:1.7;
-    }
-
-
-    .secondary-types{
-      margin-top:28px;
-      padding-top:24px;
-      border-top:1px solid var(--line);
-    }
-    .secondary-types span{
-      display:block;
-      font-size:12px;
-      color:#999;
-      margin-bottom:8px;
-    }
-    .secondary-types p{
-      font-size:15px;
-      font-weight:700;
-      color:#444;
-    }
-    .insight-section{
-      margin-top:44px;
-    }
-    .insight-card{
-      padding:22px 24px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.55);
-    }
-    .insight-label{
-      display:block;
-      font-size:11px;
-      color:#aaa;
-      letter-spacing:.08em;
-      margin-bottom:8px;
-    }
-    .insight-card p{
-      font-size:13px;
-      line-height:1.75;
-      color:#777;
-    }
-
-    @media(max-width:600px){
-      .intro-card{padding:52px 24px}
-      .intro h1{font-size:38px}
-      .intro-sub{font-size:18px}
-      .question-card{padding:42px 20px}
-      .question-card h2{font-size:23px}
-      .quick-grid{grid-template-columns:1fr}
-      .result-hero h3{font-size:34px}
-      .wallet-message p{font-size:20px}
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>마음의 모양 | 도형 자기이해 검사</title>
+<link rel="stylesheet" href="./css/style.css" />
 </head>
-
 <body>
-  <main>
-    <!-- INTRO -->
-    <section class="intro" id="introPage">
-      <div class="wrap">
-        <div class="intro-card">
-          <p class="eyebrow">MY MONEY TYPE</p>
-          <h1>나는 어떤<br>소비 타입일까?</h1>
-          <p class="intro-sub">돈 쓸 때 드러나는 나의 진짜 성향</p>
-          <p class="intro-desc">
-            우리는 같은 물건을 사도 서로 다른 이유로 지갑을 엽니다.
-            36개의 간단한 질문으로 나를 움직이는 소비의 이유를 알아보세요.
-          </p>
-          <button class="primary-btn" id="startBtn">소비성향 테스트 시작하기</button>
-          <p class="intro-note">약 3분 · 36문항 · 결과는 자기이해를 위한 참고용입니다.</p>
-        </div>
-      </div>
-    </section>
+<div class="app">
+  <div class="brand"><div class="brand-mark" id="brandShape" aria-hidden="true"></div><div>마음의 모양</div></div>
 
-    <!-- TEST -->
-    <section class="test-page" id="testPage" hidden>
-      <div class="wrap">
-        <div class="test-top">
-          <span>MY MONEY TYPE</span>
-          <span id="questionNumber">1 / 36</span>
-        </div>
-        <div class="progress">
-          <div class="progress-fill" id="progressBar"></div>
+  <div class="progress-shell">
+    <div class="progress-top">
+      <div id="progressLabel">시작 전</div>
+      <div id="progressText">0%</div>
+    </div>
+    <div class="progress"><span id="progressBar"></span></div>
+  </div>
+
+  <section id="screen-intro" class="screen active">
+    <div class="hero">
+      <div class="decor a"></div>
+      <div class="decor b"></div>
+      <div class="intro-shell">
+        <h1>마음의 모양</h1>
+        <div class="subtitle">도형을 그리며 지금의 나를 살펴보세요</div>
+        <p class="intro-copy">지금 마음이 가는 모양을 고르고 자유롭게 그려보세요.<br>완성된 그림을 바탕으로 현재의 마음 흐름을 간단하게 보여드려요.</p>
+
+        <div class="shape-motif" aria-hidden="true">
+          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="15"/></svg></span>
+          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><path d="M24 8 L40 38 H8 Z"/></svg></span>
+          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><rect x="9" y="9" width="30" height="30" rx="1"/></svg></span>
+          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><path d="M36 12 C31 8 17 8 13 15 C9 22 17 25 24 26 C31 27 39 30 35 37 C31 44 16 43 11 38"/></svg></span>
         </div>
 
-        <div class="question-card">
-          <h2 id="questionText"></h2>
+        <button class="btn primary" id="startBtn">검사 시작하기</button>
+        <div class="meta-line">약 2~3분 · 정답 없음 · 자유롭게 그려주세요</div>
 
-          <div class="answers">
-            <button class="answer-btn" data-value="1">전혀 그렇지 않다</button>
-            <button class="answer-btn" data-value="2">그렇지 않은 편이다</button>
-            <button class="answer-btn" data-value="3">보통이다</button>
-            <button class="answer-btn" data-value="4">그런 편이다</button>
-            <button class="answer-btn" data-value="5">매우 그렇다</button>
-          </div>
-        </div>
-
-        <div class="test-nav">
-          <button class="ghost-btn" id="prevBtn">← 이전 문항</button>
-          <button class="ghost-btn" id="homeBtn">처음으로</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESULT -->
-    <section class="result-page" id="resultPage" hidden>
-      <div class="wrap">
-        <div class="result-hero">
-          <p class="eyebrow">MY MONEY TYPE</p>
-          <h2 id="resultType"></h2>
-          <h3 id="resultName"></h3>
-          <p class="result-slogan" id="resultSlogan"></p>
-          <p class="result-summary" id="resultSummary"></p>
-
-          <div class="secondary-types">
-            <span>함께 나타나는 소비성향</span>
-            <p id="secondaryTypes"></p>
-          </div>
-        </div>
-
-        <div class="result-section">
-          <div class="section-title"><span>01</span><h4>나의 소비성향 TOP 3</h4></div>
-          <div id="top3List"></div>
-        </div>
-
-        <div class="result-section">
-          <div class="section-title"><span>02</span><h4>나의 소비 한눈에 보기</h4></div>
-          <div class="quick-grid">
-            <div class="quick-card">
-              <span class="quick-label">WHAT I BUY</span>
-              <strong>어디에 돈을 쓸까?</strong>
-              <p id="resultWhat"></p>
-            </div>
-            <div class="quick-card">
-              <span class="quick-label">WHY I BUY</span>
-              <strong>왜 돈을 쓸까?</strong>
-              <p id="resultWhy"></p>
-            </div>
-            <div class="quick-card">
-              <span class="quick-label">WHEN I BUY</span>
-              <strong>언제 지갑이 열릴까?</strong>
-              <p id="resultWhen"></p>
-            </div>
-            <div class="quick-card">
-              <span class="quick-label">WATCH OUT</span>
-              <strong>조심해야 할 순간</strong>
-              <p id="resultWatch"></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="result-section">
-          <div class="section-title"><span>03</span><h4>MY SPENDING BALANCE</h4></div>
-          <div id="balanceList"></div>
-        </div>
-
-        <div class="result-section">
-          <div class="section-title"><span>04</span><h4>이럴 때 지갑이 열려요</h4></div>
-          <div class="keyword-list" id="keywordList"></div>
-        </div>
-
-        <div class="result-section">
-          <div class="section-title"><span>05</span><h4>내가 가진 소비 강점</h4></div>
-          <div class="text-card"><p id="resultStrength"></p></div>
-        </div>
-
-        <div class="result-section">
-          <div class="section-title"><span>06</span><h4>이런 순간은 한번 더 생각해보세요</h4></div>
-          <div class="text-card"><p id="resultWarning"></p></div>
-        </div>
-
-        <div class="wallet-message">
-          <span>MY WALLET SAYS</span>
-          <p id="walletMessage"></p>
-        </div>
-
-        <div class="result-section">
-          <div class="section-title"><span>07</span><h4>나에게 맞는 소비 TIP</h4></div>
-          <div id="tipList"></div>
-        </div>
-
-        <div class="result-section insight-section">
-          <div class="insight-card">
-            <span class="insight-label">성향 참고</span>
-            <p id="enneagramInsight"></p>
-          </div>
-        </div>
-
-        <div class="result-buttons">
-          <button class="dark" id="restartBtn">다시 테스트하기</button>
-          <button class="light" id="copyBtn">결과 문구 복사하기</button>
-        </div>
-
-        <p class="disclaimer">
-          이 테스트는 소비습관과 선택 기준을 가볍게 돌아보기 위한 자기이해 콘텐츠입니다.
-          결과는 참고용이며 전문적인 심리검사나 재무진단을 대체하지 않습니다.
+        <p class="note" style="max-width:620px;margin:24px auto 0">
+          자기이해와 성찰을 위한 콘텐츠이며 전문적인 심리진단을 대신하지 않습니다.
         </p>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <script>
-  (() => {
-    const questions = [
-      { text:"물건을 살 때 오래 사용할 수 있는지 중요하게 생각한다.", type:1 },
-      { text:"가족이나 가까운 사람에게 선물하는 데는 돈이 덜 아깝다.", type:2 },
-      { text:"나를 더 전문적이거나 멋져 보이게 하는 물건에 관심이 간다.", type:3 },
-      { text:"흔한 제품보다 내 취향이 느껴지는 물건에 더 끌린다.", type:4 },
-      { text:"구매 전 가격과 성능을 여러 곳에서 비교하는 편이다.", type:5 },
-      { text:"후기가 적거나 검증되지 않은 제품은 구매가 망설여진다.", type:6 },
-      { text:"여행이나 새로운 경험에는 돈을 아끼지 않는 편이다.", type:7 },
-      { text:"정말 원하는 것이라면 다른 사람의 의견에 크게 흔들리지 않는다.", type:8 },
-      { text:"익숙하게 사용하던 제품이 있으면 계속 같은 것을 사는 편이다.", type:9 },
-      { text:"싸다는 이유만으로 품질이 떨어지는 제품을 사고 싶지는 않다.", type:1 },
-      { text:"내가 사는 것보다 누군가 필요한 것을 챙겨줄 때 만족감이 크다.", type:2 },
-      { text:"자기계발이나 나의 경쟁력을 높이는 데 쓰는 돈은 아깝지 않다.", type:3 },
-      { text:"디자인이나 분위기가 마음에 들면 가격이 조금 비싸도 고민하게 된다.", type:4 },
-      { text:"필요하지 않은 물건은 할인하더라도 잘 사지 않는 편이다.", type:5 },
-      { text:"큰돈을 쓸 때 예상하지 못한 문제가 생길까 걱정하는 편이다.", type:6 },
-      { text:"새로 생긴 맛집이나 공간을 발견하면 한번 경험해보고 싶다.", type:7 },
-      { text:"결정하고 나면 오래 고민하기보다 바로 구매하는 편이다.", type:8 },
-      { text:"쇼핑 자체에 많은 시간과 에너지를 쓰는 것을 좋아하지 않는다.", type:9 },
-      { text:"물건을 살 때 내가 세운 기준을 충족하는지가 중요하다.", type:1 },
-      { text:"특별한 날에는 주변 사람을 위해 평소보다 더 지출하게 된다.", type:2 },
-      { text:"중요한 자리에서는 옷이나 소품에 좀 더 투자하는 편이다.", type:3 },
-      { text:"물건을 고를 때 기능만큼 색상이나 감성도 중요하다.", type:4 },
-      { text:"구매하기 전에 제품 정보를 충분히 알아봐야 마음이 편하다.", type:5 },
-      { text:"익숙한 브랜드나 이미 사용해본 제품을 선택하면 마음이 놓인다.", type:6 },
-      { text:"재미있는 일이 생기면 계획하지 않은 지출을 할 때도 있다.", type:7 },
-      { text:"내게 필요하다고 판단하면 가격 때문에 지나치게 망설이지 않는다.", type:8 },
-      { text:"특별히 불편하지 않으면 사용하던 물건을 굳이 바꾸지 않는다.", type:9 },
-      { text:"구매한 뒤 '더 좋은 선택을 할 수 있었는데'라는 생각이 들 때가 있다.", type:1 },
-      { text:"누군가 좋아하는 모습을 보면 내가 돈을 쓴 것이 아깝지 않다.", type:2 },
-      { text:"목표를 이루는 데 도움이 된다면 비용을 투자할 가치가 있다고 생각한다.", type:3 },
-      { text:"다른 사람에게는 별것 아닌 물건도 내 취향에 맞으면 갖고 싶어진다.", type:4 },
-      { text:"충동적으로 사기보다는 시간을 두고 생각하는 편이다.", type:5 },
-      { text:"가격이 조금 더 비싸도 믿을 만한 브랜드를 선택하는 편이다.", type:6 },
-      { text:"물건보다 기억에 남는 경험에 돈을 쓰는 것을 좋아한다.", type:7 },
-      { text:"쇼핑할 때 내가 원하는 것이 명확한 편이다.", type:8 },
-      { text:"편안하고 익숙한 생활을 유지하는 데 도움이 되는 소비를 선호한다.", type:9 }
-    ];
+  <section id="screen-select" class="screen">
+    <div class="card section-card">
+      <div class="eyebrow">STEP 1</div>
+      <h2 class="section-title">지금 가장 마음이 가는 모양은?</h2>
+      <p class="section-desc">
+        너무 오래 생각하지 말고, 지금 눈에 들어오는 도형 하나를 골라주세요.
+      </p>
 
-    const moneyTypes = {
-      1:{type:"TYPE 01",name:"원칙형 소비자",slogan:"잘 사는 것보다 제대로 사는 게 중요해요.",summary:"품질과 기준을 중요하게 생각하며 후회 없는 선택을 하려는 소비 성향입니다.",what:["좋은 품질","오래 쓰는 물건","정돈된 디자인","믿을 만한 제품"],why:"제대로 된 선택을 하고 싶어서",when:"내 기준을 충분히 만족하는 제품을 만났을 때",watch:"완벽한 선택을 찾느라 지나치게 오래 고민할 수 있어요.",strength:"충동구매가 적고 장기적으로 만족할 수 있는 선택을 잘합니다.",wallet:"충분히 좋은 것도 좋은 선택이에요.",tips:["꼭 필요한 기준 3가지만 정해보세요.","모든 조건을 만족시키려 하지 않아도 괜찮아요.","비교 시간을 미리 정해두면 결정이 쉬워집니다."]},
-      2:{type:"TYPE 02",name:"관계형 소비자",slogan:"나보다 누군가를 위해 쓸 때 더 행복해요.",summary:"사람과의 관계를 중요하게 생각하며 선물이나 함께하는 경험에서 만족감을 느끼는 소비 성향입니다.",what:["선물","가족을 위한 물건","함께하는 식사","특별한 날"],why:"소중한 사람을 기쁘게 하고 싶어서",when:"가까운 사람에게 필요한 것이 보일 때",watch:"다른 사람을 챙기느라 자신의 필요를 뒤로 미룰 수 있어요.",strength:"돈을 통해 좋은 관계와 따뜻한 경험을 만드는 힘이 있습니다.",wallet:"다른 사람만큼 나도 챙겨주세요.",tips:["타인을 위한 예산과 나를 위한 예산을 나눠보세요.","선물은 가격보다 의미를 먼저 생각해보세요.","가끔은 이유 없이 나 자신에게도 선물해보세요."]},
-      3:{type:"TYPE 03",name:"성장형 소비자",slogan:"소비도 나를 발전시키는 투자예요.",summary:"성장과 성취에 도움이 되는 곳에는 과감하게 투자하는 소비 성향입니다.",what:["교육","자기계발","업무도구","외모관리"],why:"더 나은 모습으로 성장하고 싶어서",when:"내 목표 달성에 도움이 된다고 느낄 때",watch:"구매 자체를 성장으로 착각할 수 있어요.",strength:"필요한 곳에 투자하고 소비를 발전의 도구로 활용할 수 있습니다.",wallet:"성장은 구매보다 사용에서 시작돼요.",tips:["구매 전 실제 사용 계획을 먼저 정해보세요.","목표와 직접 연결되는 지출인지 확인해보세요.","이미 가진 도구를 충분히 활용한 뒤 새로 구매하세요."]},
-      4:{type:"TYPE 04",name:"취향형 소비자",slogan:"내 마음에 드는지가 가장 중요해요.",summary:"디자인과 감성, 나만의 취향을 중요하게 생각하는 소비 성향입니다.",what:["감성적인 제품","디자인 소품","패션","독특한 아이템"],why:"나의 취향과 개성을 표현하고 싶어서",when:"보는 순간 '이건 내 스타일'이라는 느낌이 들 때",watch:"비슷한 물건을 감성 때문에 반복 구매할 수 있어요.",strength:"자신의 취향을 잘 알고 만족감 높은 소비를 할 수 있습니다.",wallet:"예쁜 것도 좋지만 이미 가진 예쁨도 기억해주세요.",tips:["비슷한 물건이 집에 있는지 먼저 확인해보세요.","사진을 저장해두고 하루 뒤 다시 보고 결정해보세요.","취향 소비 예산을 따로 정해두면 만족도가 높아집니다."]},
-      5:{type:"TYPE 05",name:"분석형 소비자",slogan:"알아보고 비교한 뒤 결정해요.",summary:"가격과 성능, 정보를 충분히 비교한 뒤 합리적으로 결정하려는 소비 성향입니다.",what:["가성비 좋은 제품","기능성 제품","검증된 상품","정보가 충분한 제품"],why:"낭비 없이 합리적인 선택을 하고 싶어서",when:"가격과 성능 모두 납득할 수 있을 때",watch:"정보를 너무 많이 찾느라 결정이 늦어질 수 있어요.",strength:"충동구매를 줄이고 비용 대비 효율이 높은 선택을 잘합니다.",wallet:"조사는 충분해요. 이제 선택해도 괜찮아요.",tips:["비교 제품을 최대 3개까지만 정해보세요.","정보 탐색 시간을 제한해보세요.","완벽한 최저가보다 충분히 좋은 선택을 목표로 해보세요."]},
-      6:{type:"TYPE 06",name:"안정형 소비자",slogan:"실패하지 않는 선택이 중요해요.",summary:"신뢰와 안정성을 중요하게 생각하며 검증된 선택을 선호하는 소비 성향입니다.",what:["익숙한 브랜드","보증이 좋은 제품","후기가 많은 상품","생활 필수품"],why:"실패와 불확실성을 줄이고 싶어서",when:"충분히 검증됐다는 확신이 들 때",watch:"새로운 선택을 지나치게 피할 수 있어요.",strength:"큰 실수를 줄이고 안정적인 소비를 잘합니다.",wallet:"새로운 선택이 모두 위험한 건 아니에요.",tips:["작은 금액의 소비에서는 새로운 제품도 시도해보세요.","후기는 일정 개수까지만 확인해보세요.","익숙하다는 이유만으로 같은 선택을 하는지 점검해보세요."]},
-      7:{type:"TYPE 07",name:"경험형 소비자",slogan:"물건보다 재미있는 경험을 사고 싶어요.",summary:"새로운 경험과 즐거움을 위해 돈을 쓰는 것을 아깝게 생각하지 않는 소비 성향입니다.",what:["여행","맛집","취미","공연","새로운 경험"],why:"삶을 더 재미있고 풍성하게 만들고 싶어서",when:"새롭고 재미있는 경험을 발견했을 때",watch:"'지금 아니면 못 한다'는 생각으로 지출이 커질 수 있어요.",strength:"돈을 통해 다양한 경험과 좋은 기억을 만들어갑니다.",wallet:"재미있는 건 좋은데 다음 달의 나도 생각해주세요.",tips:["매달 경험 예산을 따로 정해보세요.","큰 지출은 하루 뒤 다시 생각해보세요.","경험 후 만족도를 간단히 기록해보세요."]},
-      8:{type:"TYPE 08",name:"결단형 소비자",slogan:"내가 원한다면 과감하게 선택해요.",summary:"원하는 것이 분명하면 빠르고 과감하게 결정하는 소비 성향입니다.",what:["좋은 품질","편리함","시간 절약","확실히 원하는 것"],why:"내 기준과 판단을 중요하게 생각해서",when:"필요하다고 확신이 들었을 때",watch:"빠른 결정 때문에 가격 비교를 놓칠 수 있어요.",strength:"결정력이 좋고 필요한 곳에 과감히 투자할 수 있습니다.",wallet:"결단력은 좋지만 10분만 더 생각해도 괜찮아요.",tips:["큰 금액은 결제 전에 한 번 더 멈춰보세요.","비교는 최소 2개 제품까지만 해보세요.","필요한 소비와 갖고 싶은 소비를 구분해보세요."]},
-      9:{type:"TYPE 09",name:"편안형 소비자",slogan:"복잡하지 않고 편안한 게 좋아요.",summary:"익숙함과 편안함을 중요하게 생각하며 안정적인 소비를 선호하는 성향입니다.",what:["생활 필수품","익숙한 제품","편안한 물건","번거로움을 줄이는 서비스"],why:"생활을 편하고 안정적으로 유지하고 싶어서",when:"지금 생활을 더 편하게 만들어준다고 느낄 때",watch:"필요한 교체나 개선을 계속 미룰 수 있어요.",strength:"유행에 쉽게 흔들리지 않고 안정적인 소비를 합니다.",wallet:"편안함도 좋지만 필요한 변화는 미루지 마세요.",tips:["불편함이 반복되는 물건은 교체를 고려해보세요.","가격보다 생활 편의가 높아지는지도 함께 보세요.","오래 사용했다는 이유만으로 유지하는 건 아닌지 확인해보세요."]}
-    };
+      <div class="shape-grid" id="shapeGrid"></div>
 
-    const enneagramInsights = {
-      1:"기준과 완성도를 중요하게 보는 모습은 에니어그램 1유형의 성향과 일부 닿아 있을 수 있어요.",
-      2:"사람을 위해 쓰는 소비에서 만족을 느끼는 모습은 에니어그램 2유형의 성향과 일부 비슷할 수 있어요.",
-      3:"성장과 성취를 위한 소비를 중요하게 여기는 모습은 에니어그램 3유형의 성향과 일부 닿아 있을 수 있어요.",
-      4:"취향과 나다움을 중요하게 여기는 소비는 에니어그램 4유형의 성향과 일부 비슷할 수 있어요.",
-      5:"정보를 충분히 확인하고 판단하려는 모습은 에니어그램 5유형의 성향과 일부 닿아 있을 수 있어요.",
-      6:"검증과 안정성을 중요하게 보는 소비는 에니어그램 6유형의 성향과 일부 비슷할 수 있어요.",
-      7:"새로운 경험과 즐거움을 중시하는 소비는 에니어그램 7유형의 성향과 일부 닿아 있을 수 있어요.",
-      8:"스스로 판단하고 빠르게 결정하는 소비는 에니어그램 8유형의 성향과 일부 비슷할 수 있어요.",
-      9:"익숙함과 편안함을 중시하는 소비는 에니어그램 9유형의 성향과 일부 닿아 있을 수 있어요."
-    };
+      <div class="selected-hint" id="selectedHint"></div>
 
-    const introPage = document.querySelector('#introPage');
-    const testPage = document.querySelector('#testPage');
-    const resultPage = document.querySelector('#resultPage');
-    const startBtn = document.querySelector('#startBtn');
-    const prevBtn = document.querySelector('#prevBtn');
-    const homeBtn = document.querySelector('#homeBtn');
-    const restartBtn = document.querySelector('#restartBtn');
-    const copyBtn = document.querySelector('#copyBtn');
-    const questionNumber = document.querySelector('#questionNumber');
-    const questionText = document.querySelector('#questionText');
-    const progressBar = document.querySelector('#progressBar');
-    const answerBtns = [...document.querySelectorAll('.answer-btn')];
+      <div class="quick" style="margin-top:18px;background:#fbfbf8">
+        <h3>이렇게 진행돼요</h3>
+        <ul>
+          <li>고른 도형은 3번 그려요</li>
+          <li>나머지 도형은 하나씩 그려요</li>
+          <li>화면에서 다음 도형을 바로 알려드려요</li>
+        </ul>
+      </div>
 
-    let currentQuestion = 0;
-    const answers = new Array(questions.length).fill(null);
-    const scores = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+      <div class="bottom-row" style="margin-top:22px">
+        <button class="btn ghost" id="backToIntroBtn">이전</button>
+        <button class="btn primary" id="toDrawBtn" disabled>이 도형으로 시작하기</button>
+      </div>
+    </div>
+  </section>
 
-    function showOnly(page){
-      [introPage,testPage,resultPage].forEach(el => el.hidden = el !== page);
-      window.scrollTo({top:0,behavior:'smooth'});
-    }
+  <section id="screen-draw" class="screen">
+    <div class="draw-layout">
+      <div class="card canvas-card">
+        <div class="draw-topbar">
+          <div class="phase-badge" id="phaseBadge">1 / 6</div>
+        </div>
 
-    function renderQuestion(){
-      const q = questions[currentQuestion];
-      questionNumber.textContent = `${currentQuestion + 1} / ${questions.length}`;
-      questionText.textContent = q.text;
-      progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+        <div class="mission">
+          <div class="mission-label">지금 해야 할 일</div>
+          <div class="mission-main" id="missionMain"></div>
+          <div class="mission-sub" id="missionSub"></div>
+        </div>
 
-      answerBtns.forEach(btn => {
-        btn.classList.toggle('on', Number(btn.dataset.value) === answers[currentQuestion]);
-      });
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="drawCanvas"></canvas>
+          <div class="inner-square"></div>
+          <div class="canvas-hint">마우스 또는 손가락으로 그려주세요</div>
+        </div>
+        <div class="draw-actions">
+          <button class="save" id="saveBtn" disabled>다음</button>
+        </div>
+        <p class="auto-redraw-note" style="text-align:center">다시 그리고 싶다면 바로 새로 그려주세요. ‘다음’을 누르기 전에는 이전 그림이 자동으로 지워집니다.</p>
+      </div>
 
-      prevBtn.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
-    }
+      <aside class="side-card">
+        <div class="eyebrow">DRAWING FLOW</div>
+        <h2 class="side-title">한 단계씩 따라오면 돼요</h2>
+        <p class="side-desc">지금 안내되는 도형 하나만 그리면 됩니다.</p>
 
-    function calculateResult(){
-      Object.keys(scores).forEach(k => scores[k] = 0);
+        <div class="current-step">
+          <strong id="currentStepTitle"></strong>
+          <p id="currentStepDesc"></p>
+        </div>
 
-      questions.forEach((q, i) => {
-        if(answers[i] !== null) scores[q.type] += answers[i];
-      });
+        <div class="toolbar">
+          <button id="restartBtn">처음부터 다시</button>
+        </div>
 
-      const ranking = Object.entries(scores).sort((a,b) => b[1] - a[1]);
-      const top3 = ranking.slice(0,3);
-      const mainType = Number(top3[0][0]);
+        <div class="mini-list" id="miniList"></div>
+        <div class="legend"></div>
+      </aside>
+    </div>
+  </section>
 
-      renderResult(mainType, top3);
-      showOnly(resultPage);
-    }
+  <section id="screen-loading" class="screen">
+    <div class="card loading">
+      <div class="spinner"></div>
+      <h2>당신이 그린 마음을 정리하고 있어요</h2>
+      <p class="section-desc" style="margin:0 auto;max-width:560px">도형의 선택, 배치, 크기와 위치를 살펴 현재의 마음에서 눈에 띄는 흐름을 정리하고 있어요.</p>
+    </div>
+  </section>
 
-    function getRelativePercent(score){
-      const values = Object.values(scores);
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      if(max === min) return 50;
-      return Math.round(((score - min)/(max - min))*50 + 50);
-    }
+  <section id="screen-result" class="screen">
+    <div class="free-result-shell character-result-shell">
+      <div class="card free-result-hero character-result-hero">
+        <div class="result-kicker">당신의 지금 마음은</div>
+        <div class="result-character-large" id="resultCharacter"></div>
+        <div class="free-result-theme" id="resultShapeLine"></div>
+        <h2 id="resultTitle"></h2>
+        <div class="free-result-chips" id="resultChips"></div>
+        <p class="free-result-summary" id="resultDesc"></p>
+      </div>
 
-    function average(values){
-      return values.reduce((a,b)=>a+b,0) / values.length;
-    }
+      <details class="card result-mind-card" open>
+        <summary>
+          <span class="mind-leaf">♥</span>
+          <strong>도형이 보여주는 지금의 마음</strong>
+          <span class="summary-arrow" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="result-mind-copy" id="resultMind"></div>
+      </details>
 
-    function calculateBalance(){
-      const raw = {
-        plan: average([scores[1],scores[5],scores[6]]),
-        emotion: average([scores[2],scores[4]]),
-        experience: average([scores[3],scores[7],scores[8]]),
-        relationship: average([scores[2],scores[9]]),
-        stability: average([scores[1],scores[6],scores[9]])
-      };
+      <div class="comfort-wrap" aria-label="마음을 토닥이는 한마디">
+        <div class="result-character-small" id="comfortCharacter"></div>
+        <div class="comfort-bubble" id="comfortMessage"></div>
+      </div>
 
-      const values = Object.values(raw);
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      const out = {};
-
-      Object.entries(raw).forEach(([key,value])=>{
-        out[key] = max === min ? 50 : Math.round(((value-min)/(max-min))*50+50);
-      });
-
-      return out;
-    }
-
-    function renderTop3(top3){
-      const box = document.querySelector('#top3List');
-      box.innerHTML = '';
-
-      top3.forEach(([type,score],idx)=>{
-        const data = moneyTypes[type];
-        const percent = getRelativePercent(score);
-
-        box.insertAdjacentHTML('beforeend',`
-          <div class="top3-item">
-            <div class="top3-head">
-              <strong>${idx+1}위 · ${data.name}</strong>
-              <span>${percent}%</span>
-            </div>
-            <div class="bar"><div class="bar-fill" style="width:${percent}%"></div></div>
+      <div class="card detail-cta">
+        <div class="detail-cta-inner">
+          <div class="detail-cta-copy">
+            <strong>내 그림에 담긴 이야기를 조금 더 자세히 보고 싶다면</strong>
+            <p>2차·3차·4차 도형과 위치·크기, 현재의 강점과 가능성까지 포함한 상세결과를 확인할 수 있어요.</p>
           </div>
-        `);
-      });
-    }
+          <button class="btn ghost" id="detailBtn">상세결과 알아보기</button>
+        </div>
+      </div>
 
-    function renderBalance(){
-      const labels = {
-        plan:'계획',
-        emotion:'감성',
-        experience:'경험',
-        relationship:'관계',
-        stability:'안정'
-      };
-      const data = calculateBalance();
-      const box = document.querySelector('#balanceList');
-      box.innerHTML = '';
+      <div class="free-result-buttons">
+        <button class="btn primary" id="retryBtn">다시 검사하기</button>
+      </div>
+      <div class="free-result-footer">이 결과는 그림에서 나타난 경향을 바탕으로 현재의 나를 돌아보기 위한 성찰용 안내입니다. 특정 심리상태나 질환을 진단하지 않습니다.</div>
+    </div>
+  </section>
+</div>
 
-      Object.entries(data).forEach(([key,percent])=>{
-        box.insertAdjacentHTML('beforeend',`
-          <div class="balance-item">
-            <div class="balance-head">
-              <span>${labels[key]}</span>
-              <strong>${percent}%</strong>
-            </div>
-            <div class="bar"><div class="bar-fill" style="width:${percent}%"></div></div>
-          </div>
-        `);
-      });
-    }
-
-    function renderResult(mainType, top3){
-      const r = moneyTypes[mainType];
-
-      document.querySelector('#resultType').textContent = r.type;
-      document.querySelector('#resultName').textContent = r.name;
-      document.querySelector('#resultSlogan').textContent = r.slogan;
-      document.querySelector('#resultSummary').textContent = r.summary;
-      document.querySelector('#resultWhat').textContent = r.what.join(' · ');
-      document.querySelector('#resultWhy').textContent = r.why;
-      document.querySelector('#resultWhen').textContent = r.when;
-      document.querySelector('#resultWatch').textContent = r.watch;
-      document.querySelector('#resultStrength').textContent = r.strength;
-      document.querySelector('#resultWarning').textContent = r.watch;
-      document.querySelector('#walletMessage').textContent = `“${r.wallet}”`;
-
-      const secondaryNames = top3.slice(1,3).map(([type]) => moneyTypes[type].name);
-      document.querySelector('#secondaryTypes').textContent = secondaryNames.join(' · ');
-      document.querySelector('#enneagramInsight').textContent = enneagramInsights[mainType];
-
-      document.querySelector('#keywordList').innerHTML =
-        r.what.map(v => `<span>#${v.replaceAll(' ','')}</span>`).join('');
-
-      document.querySelector('#tipList').innerHTML =
-        r.tips.map((tip,i)=>`
-          <div class="tip-item">
-            <span>${String(i+1).padStart(2,'0')}</span>
-            <p>${tip}</p>
-          </div>
-        `).join('');
-
-      renderTop3(top3);
-      renderBalance();
-
-      copyBtn.dataset.copy = `${r.type} ${r.name}\n${r.slogan}\n${r.summary}`;
-    }
-
-    function resetTest(){
-      currentQuestion = 0;
-      answers.fill(null);
-      Object.keys(scores).forEach(k=>scores[k]=0);
-      renderQuestion();
-    }
-
-    startBtn.addEventListener('click',()=>{
-      resetTest();
-      showOnly(testPage);
-    });
-
-    answerBtns.forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        answers[currentQuestion] = Number(btn.dataset.value);
-
-        if(currentQuestion < questions.length - 1){
-          currentQuestion++;
-          renderQuestion();
-        }else{
-          calculateResult();
-        }
-      });
-    });
-
-    prevBtn.addEventListener('click',()=>{
-      if(currentQuestion > 0){
-        currentQuestion--;
-        renderQuestion();
-      }
-    });
-
-    homeBtn.addEventListener('click',()=>{
-      showOnly(introPage);
-    });
-
-    restartBtn.addEventListener('click',()=>{
-      resetTest();
-      showOnly(testPage);
-    });
-
-    copyBtn.addEventListener('click', async ()=>{
-      try{
-        await navigator.clipboard.writeText(copyBtn.dataset.copy || '');
-        const original = copyBtn.textContent;
-        copyBtn.textContent = '복사되었습니다';
-        setTimeout(()=>copyBtn.textContent = original,1400);
-      }catch(e){
-        alert('브라우저에서 복사가 허용되지 않았습니다.');
-      }
-    });
-
-    renderQuestion();
-  })();
-  </script>
+<script src="./js/script.js" defer></script>
 </body>
 </html>
