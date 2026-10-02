@@ -295,6 +295,7 @@
   const drawGuideDesc = $("#drawGuideDesc");
   const drawAgainBtn = $("#drawAgainBtn");
   const drawNextBtn = $("#drawNextBtn");
+  const drawGuideStep = $("#drawGuideStep");
 
   function openAfterDrawModal() {
     if (!state.currentStrokes.flat().length) return;
@@ -302,7 +303,15 @@
     const m = getMetrics(state.currentStrokes);
     if (!m || Math.max(m.w, m.h) < 18) return;
 
-    const isLast = state.currentIndex === state.sequence.length - 1;
+    const total = state.sequence.length;
+    const isLast = state.currentIndex === total - 1;
+
+    if (isLast) {
+  drawGuideStep.textContent = `그림 ${total} / ${total}`;
+} else {
+  drawGuideStep.textContent =
+    `그림 ${state.currentIndex + 2} / ${total}`;
+}
 
     if (isLast) {
       drawGuideKicker.textContent = "모두 그렸어요!";
