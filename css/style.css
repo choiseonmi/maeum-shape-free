@@ -511,3 +511,850 @@
     .result-mind-card summary{padding:18px 16px;font-size:16px}
     .result-mind-copy{margin:0 16px 16px;padding:17px 16px;font-size:14px}
   }
+
+
+/* =========================================================
+   FINAL UX UPDATE
+   - Intro characters
+   - Simple selection guide
+   - Auto guide modal after drawing
+========================================================= */
+
+.simple-flow-copy{
+  margin:0;
+  color:#56605a;
+  line-height:1.8;
+  font-size:14px;
+}
+
+/* INTRO CHARACTERS - free placement on desktop */
+.intro-characters{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.intro-character{
+  position:absolute;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+}
+
+.intro-character-visual{
+  display:grid;
+  place-items:center;
+  animation:floatSoft 4.5s ease-in-out infinite;
+}
+
+.intro-character-visual .result-character-svg{
+  display:block;
+  width:100%;
+  height:100%;
+  filter:drop-shadow(0 8px 16px rgba(68,48,38,.08));
+}
+
+.intro-character-name{
+  font-size:13px;
+  font-weight:750;
+  color:#68716c;
+  letter-spacing:-.02em;
+}
+
+/* asymmetric, playful placement */
+.char-heart{
+  left:3%;
+  top:32%;
+  transform:rotate(-5deg);
+}
+.char-heart .intro-character-visual{
+  width:118px;
+  height:118px;
+}
+
+.char-challenge{
+  right:5%;
+  top:15%;
+  transform:rotate(6deg);
+}
+.char-challenge .intro-character-visual{
+  width:102px;
+  height:102px;
+  animation-delay:.8s;
+}
+
+.char-steady{
+  left:10%;
+  bottom:8%;
+  transform:rotate(3deg);
+}
+.char-steady .intro-character-visual{
+  width:108px;
+  height:108px;
+  animation-delay:1.6s;
+}
+
+.char-think{
+  right:12%;
+  bottom:19%;
+  transform:rotate(-4deg);
+}
+.char-think .intro-character-visual{
+  width:122px;
+  height:122px;
+  animation-delay:2.4s;
+}
+
+@keyframes floatSoft{
+  0%,100%{ translate:0 0; }
+  50%{ translate:0 -8px; }
+}
+
+/* central copy should stay above floating characters */
+.intro-shell{
+  position:relative;
+  z-index:3;
+}
+
+/* AUTO GUIDE MODAL */
+.draw-guide-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  place-items:center;
+  padding:20px;
+}
+.draw-guide-modal.on{
+  display:grid;
+}
+.draw-guide-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(31,37,34,.38);
+  backdrop-filter:blur(3px);
+}
+.draw-guide-dialog{
+  position:relative;
+  z-index:1;
+  width:min(430px,100%);
+  background:#fff;
+  border:1px solid rgba(80,95,88,.12);
+  border-radius:28px;
+  padding:30px 26px 26px;
+  text-align:center;
+  box-shadow:0 28px 70px rgba(31,37,34,.18);
+}
+.draw-guide-kicker{
+  font-size:12px;
+  font-weight:850;
+  letter-spacing:.08em;
+  color:var(--accent-dark);
+  margin-bottom:14px;
+}
+.draw-guide-shape{
+  width:84px;
+  height:84px;
+  margin:0 auto 10px;
+  display:grid;
+  place-items:center;
+  color:var(--ink);
+}
+.draw-guide-shape .ui-shape{
+  width:84px;
+  height:84px;
+  flex-basis:84px;
+}
+.draw-guide-title{
+  margin:0 0 10px;
+  font-size:clamp(24px,5vw,32px);
+  line-height:1.35;
+  letter-spacing:-.04em;
+}
+.draw-guide-desc{
+  margin:0 auto 22px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+.draw-guide-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+.draw-guide-actions .btn{
+  min-width:148px;
+}
+body.modal-open{
+  overflow:hidden !important;
+}
+
+@media(max-width:900px){
+  .char-heart{left:0;top:34%}
+  .char-challenge{right:0;top:18%}
+  .char-steady{left:4%;bottom:8%}
+  .char-think{right:4%;bottom:20%}
+
+  .char-heart .intro-character-visual{width:96px;height:96px}
+  .char-challenge .intro-character-visual{width:88px;height:88px}
+  .char-steady .intro-character-visual{width:92px;height:92px}
+  .char-think .intro-character-visual{width:100px;height:100px}
+}
+
+@media(max-width:620px){
+  .intro-characters{
+    position:relative;
+    inset:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    align-items:end;
+    gap:5px;
+    margin:24px auto 28px;
+    pointer-events:auto;
+  }
+
+  .intro-character{
+    position:static;
+    transform:none !important;
+    gap:4px;
+  }
+
+  .intro-character-visual{
+    width:64px !important;
+    height:64px !important;
+    animation:none;
+  }
+
+  .intro-character-name{
+    font-size:11px;
+  }
+
+  .draw-guide-dialog{
+    border-radius:24px;
+    padding:26px 18px 22px;
+  }
+
+  .draw-guide-shape{
+    width:74px;
+    height:74px;
+  }
+
+  .draw-guide-shape .ui-shape{
+    width:74px;
+    height:74px;
+    flex-basis:74px;
+  }
+
+  .draw-guide-title{
+    font-size:25px;
+  }
+
+  .draw-guide-actions{
+    flex-direction:column-reverse;
+  }
+
+  .draw-guide-actions .btn{
+    width:100%;
+  }
+}
+
+@media(max-width:420px){
+  .intro-characters{
+    grid-template-columns:repeat(2,1fr);
+    max-width:240px;
+    row-gap:12px;
+  }
+
+  .intro-character-visual{
+    width:68px !important;
+    height:68px !important;
+  }
+}
+
+
+/* =========================================================
+   v23: intro characters use the full hero width
+   and spread according to viewport/hero ratio
+========================================================= */
+
+/* allow the first hero to use more of the browser width than the text column */
+#screen-intro .hero{
+  width:min(1180px, calc(100vw - 24px));
+  max-width:none;
+  margin-left:50%;
+  transform:translateX(-50%);
+}
+
+/* character layer now fills the whole hero, not the centered text column */
+#screen-intro .intro-characters{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* keep the text centered and readable */
+#screen-intro .intro-shell{
+  width:min(720px, 72vw);
+  max-width:720px;
+  position:relative;
+  z-index:3;
+}
+
+/* freer, asymmetric placement */
+#screen-intro .char-heart{
+  left:clamp(8px, 3.5vw, 58px);
+  top:34%;
+}
+
+#screen-intro .char-challenge{
+  right:clamp(10px, 4.5vw, 76px);
+  top:15%;
+}
+
+#screen-intro .char-steady{
+  left:clamp(28px, 8vw, 132px);
+  bottom:8%;
+}
+
+#screen-intro .char-think{
+  right:clamp(24px, 7vw, 118px);
+  bottom:19%;
+}
+
+/* scale a little with screen width instead of staying fixed */
+#screen-intro .char-heart .intro-character-visual{
+  width:clamp(96px, 10vw, 126px);
+  height:clamp(96px, 10vw, 126px);
+}
+
+#screen-intro .char-challenge .intro-character-visual{
+  width:clamp(86px, 8.6vw, 110px);
+  height:clamp(86px, 8.6vw, 110px);
+}
+
+#screen-intro .char-steady .intro-character-visual{
+  width:clamp(90px, 9vw, 116px);
+  height:clamp(90px, 9vw, 116px);
+}
+
+#screen-intro .char-think .intro-character-visual{
+  width:clamp(100px, 10.5vw, 132px);
+  height:clamp(100px, 10.5vw, 132px);
+}
+
+/* medium desktop / tablet:
+   move characters farther toward the outer edge and slightly reduce the text column */
+@media (max-width:980px){
+  #screen-intro .hero{
+    width:calc(100vw - 20px);
+  }
+
+  #screen-intro .intro-shell{
+    width:min(660px, 76vw);
+  }
+
+  #screen-intro .char-heart{
+    left:0;
+    top:36%;
+  }
+
+  #screen-intro .char-challenge{
+    right:0;
+    top:16%;
+  }
+
+  #screen-intro .char-steady{
+    left:3%;
+    bottom:8%;
+  }
+
+  #screen-intro .char-think{
+    right:3%;
+    bottom:20%;
+  }
+}
+
+/* portrait tablet:
+   prevent characters from crowding the center copy */
+@media (max-width:760px){
+  #screen-intro .intro-shell{
+    width:min(590px, 78vw);
+  }
+
+  #screen-intro .char-heart{
+    left:-8px;
+    top:39%;
+  }
+
+  #screen-intro .char-challenge{
+    right:-6px;
+    top:18%;
+  }
+
+  #screen-intro .char-steady{
+    left:0;
+    bottom:7%;
+  }
+
+  #screen-intro .char-think{
+    right:0;
+    bottom:22%;
+  }
+}
+
+/* mobile:
+   characters return to an in-flow grid so they never cover the copy */
+@media (max-width:620px){
+  #screen-intro .hero{
+    width:100%;
+    margin-left:0;
+    transform:none;
+  }
+
+  #screen-intro .intro-shell{
+    width:100%;
+    max-width:100%;
+  }
+
+  #screen-intro .intro-characters{
+    position:relative;
+    inset:auto;
+    width:min(340px, 92vw);
+    height:auto;
+    margin:18px auto 24px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    align-items:end;
+    gap:4px;
+    order:0;
+  }
+
+  #screen-intro .intro-character{
+    position:static;
+    transform:none !important;
+  }
+
+  #screen-intro .intro-character-visual{
+    width:clamp(58px, 16vw, 70px) !important;
+    height:clamp(58px, 16vw, 70px) !important;
+    animation:none;
+  }
+}
+
+/* very narrow phones: two-by-two gives each character breathing room */
+@media (max-width:390px){
+  #screen-intro .intro-characters{
+    width:min(230px, 86vw);
+    grid-template-columns:repeat(2,1fr);
+    gap:12px 18px;
+  }
+
+  #screen-intro .intro-character-visual{
+    width:66px !important;
+    height:66px !important;
+  }
+}
+
+
+/* =========================================================
+   RESULT V2
+   기질 → 요즘 내 마음 → 그림 풀이/조언 → 토닥임 → 상세 CTA
+========================================================= */
+
+.result-section-head{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.result-section-small{
+  display:block;
+  margin-bottom:5px;
+  color:#8a918d;
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.result-section-head h3,
+.compact-detail-copy h3{
+  margin:0;
+  color:var(--ink);
+  font-size:22px;
+  line-height:1.4;
+  letter-spacing:-.035em;
+}
+
+/* 상단: 캐릭터 + 기질 */
+.temperament-hero{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:34px;
+  align-items:center;
+  padding:34px 36px;
+  text-align:left;
+}
+
+.temperament-character{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.temperament-character .result-character-large{
+  min-height:auto;
+  margin:0 auto 4px;
+}
+
+.temperament-character .result-character-svg{
+  width:190px;
+  height:190px;
+}
+
+.temperament-character-name{
+  margin-top:2px;
+  color:#37423c;
+  font-size:18px;
+  font-weight:850;
+  letter-spacing:-.03em;
+}
+
+.temperament-character .free-result-theme{
+  margin-top:8px;
+  margin-bottom:0;
+}
+
+.temperament-copy{
+  min-width:0;
+}
+
+.temperament-copy h2{
+  margin:5px 0 14px;
+  color:var(--ink);
+  font-size:clamp(27px,4vw,38px);
+  line-height:1.3;
+  letter-spacing:-.045em;
+}
+
+.temperament-copy > p{
+  margin:0;
+  color:#4f5953;
+  font-size:15px;
+  line-height:1.9;
+}
+
+.current-type-box{
+  margin-top:22px;
+  padding:17px 18px;
+  border-radius:18px;
+  background:#f6f8f6;
+  border:1px solid #e4e9e5;
+}
+
+.current-type-label{
+  display:block;
+  margin-bottom:6px;
+  color:#7d8680;
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:.02em;
+}
+
+.current-type-box > strong{
+  display:block;
+  margin-bottom:10px;
+  color:#344039;
+  font-size:18px;
+  font-weight:850;
+  letter-spacing:-.03em;
+}
+
+.current-type-box .free-result-chips{
+  justify-content:flex-start;
+  margin:0;
+}
+
+/* 요즘 내 마음 */
+.result-mind-card{
+  padding:26px;
+  overflow:visible;
+}
+
+.result-mind-card .mind-leaf{
+  flex:0 0 32px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#eff4ee;
+  color:#7f9b76;
+  font-size:13px;
+}
+
+.result-mind-copy{
+  margin:0;
+  padding:20px 22px;
+  border-radius:18px;
+  background:#fbf8f4;
+  color:#4d5751;
+  font-size:15px;
+  line-height:1.9;
+}
+
+/* 그림 풀이 */
+.drawing-clue-card{
+  position:relative;
+  overflow:hidden;
+  padding:27px 26px 26px;
+  background:#fffdf9;
+  border:1px solid #ebe6de;
+  box-shadow:0 10px 26px rgba(35,49,43,.045);
+}
+
+.drawing-clue-card::after{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  right:-55px;
+  bottom:-60px;
+  border-radius:50%;
+  border:1px solid rgba(111,145,133,.12);
+}
+
+.drawing-clue-content{
+  position:relative;
+  z-index:1;
+}
+
+.drawing-clue-title{
+  display:block;
+  margin-bottom:10px;
+  color:#35413a;
+  font-size:18px;
+  font-weight:850;
+  line-height:1.5;
+  letter-spacing:-.03em;
+}
+
+.drawing-clue-text{
+  margin:0;
+  color:#4f5953;
+  font-size:15px;
+  line-height:1.85;
+}
+
+.drawing-advice{
+  margin-top:18px;
+  padding:18px 20px;
+  border-radius:18px;
+  background:#eef3f0;
+  border:1px solid rgba(111,145,133,.15);
+}
+
+.drawing-advice::before{
+  content:"✓";
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  margin-bottom:10px;
+  border-radius:50%;
+  background:#fff;
+  color:var(--accent-dark);
+  font-size:13px;
+  font-weight:900;
+}
+
+.drawing-advice > span{
+  display:block;
+  margin-bottom:7px;
+  color:var(--accent-dark);
+  font-size:12px;
+  font-weight:850;
+  letter-spacing:.02em;
+}
+
+.drawing-advice p{
+  margin:0;
+  color:#425149;
+  font-size:14px;
+  line-height:1.8;
+}
+
+/* 컴팩트 상세 CTA */
+.compact-detail-cta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  padding:24px 26px;
+  background:#f7f8f5;
+  border:1px solid #e2e7e2;
+  box-shadow:none;
+}
+
+.compact-detail-copy{
+  min-width:0;
+}
+
+.compact-detail-copy h3{
+  margin:3px 0 8px;
+  font-size:20px;
+  line-height:1.45;
+}
+
+.compact-detail-copy p{
+  max-width:500px;
+  margin:0;
+  color:#69716c;
+  font-size:13px;
+  line-height:1.75;
+}
+
+.compact-detail-btn{
+  flex:0 0 auto;
+  min-width:180px;
+  white-space:nowrap;
+}
+
+.free-result-buttons{
+  margin-top:4px;
+}
+
+.free-result-buttons .btn{
+  min-width:150px;
+}
+
+/* tablet */
+@media(max-width:820px){
+  .temperament-hero{
+    grid-template-columns:190px 1fr;
+    gap:24px;
+    padding:30px 26px;
+  }
+
+  .temperament-character .result-character-svg{
+    width:160px;
+    height:160px;
+  }
+
+  .result-mind-card,
+  .drawing-clue-card{
+    padding:24px 22px;
+  }
+}
+
+/* mobile */
+@media(max-width:620px){
+  .temperament-hero{
+    grid-template-columns:1fr;
+    gap:18px;
+    padding:27px 20px 24px;
+    text-align:center;
+  }
+
+  .temperament-character .result-character-svg{
+    width:155px;
+    height:155px;
+  }
+
+  .temperament-character-name{
+    font-size:17px;
+  }
+
+  .temperament-copy h2{
+    font-size:26px;
+  }
+
+  .temperament-copy > p{
+    font-size:14px;
+    line-height:1.8;
+    text-align:left;
+  }
+
+  .current-type-box{
+    text-align:left;
+  }
+
+  .current-type-box .free-result-chips{
+    justify-content:flex-start;
+  }
+
+  .result-mind-card,
+  .drawing-clue-card{
+    padding:21px 18px;
+  }
+
+  .result-section-head{
+    gap:10px;
+    margin-bottom:14px;
+  }
+
+  .result-section-head h3,
+  .compact-detail-copy h3{
+    font-size:20px;
+  }
+
+  .result-section-small{
+    font-size:11px;
+  }
+
+  .result-mind-copy{
+    padding:17px 16px;
+    font-size:14px;
+    line-height:1.8;
+  }
+
+  .drawing-clue-title{
+    font-size:16px;
+  }
+
+  .drawing-clue-text{
+    font-size:14px;
+    line-height:1.8;
+  }
+
+  .drawing-advice{
+    margin-top:15px;
+    padding:16px;
+  }
+
+  .drawing-advice p{
+    font-size:13px;
+    line-height:1.75;
+  }
+
+  .compact-detail-cta{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:18px;
+    padding:21px 18px;
+  }
+
+  .compact-detail-copy h3{
+    font-size:18px;
+  }
+
+  .compact-detail-copy p{
+    font-size:13px;
+  }
+
+  .compact-detail-btn{
+    width:100%;
+  }
+}
+
+/* 첫 화면에서는 캐릭터 이름 숨기기 */
+#screen-intro .intro-character-name{
+  display:none;
+}

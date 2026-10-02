@@ -1,172 +1,242 @@
 <!doctype html>
 <html lang="ko">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>마음의 모양 | 도형 자기이해 검사</title>
-<link rel="stylesheet" href="./css/style.css" />
-</head>
-<body>
-<div class="app">
-  <div class="brand"><div class="brand-mark" id="brandShape" aria-hidden="true"></div><div>마음의 모양</div></div>
 
-  <div class="progress-shell">
-    <div class="progress-top">
-      <div id="progressLabel">시작 전</div>
-      <div id="progressText">0%</div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>마음의 모양 | 도형 자기이해 검사</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <div class="app">
+    <div class="brand">
+      <div class="brand-mark" id="brandShape" aria-hidden="true"></div>
+      <div>마음의 모양</div>
     </div>
-    <div class="progress"><span id="progressBar"></span></div>
+
+    <div class="progress-shell">
+      <div class="progress-top">
+        <div id="progressLabel">시작 전</div>
+        <div id="progressText">0%</div>
+      </div>
+      <div class="progress"><span id="progressBar"></span></div>
+    </div>
+
+    <section id="screen-intro" class="screen active">
+      <div class="hero">
+        <div class="intro-characters" id="introCharacters" aria-label="마음의 모양 캐릭터"></div>
+        <div class="decor a"></div>
+        <div class="decor b"></div>
+        <div class="intro-shell">
+          <h1>마음의 모양</h1>
+          <div class="subtitle">
+            도형을 통해 나를 이해하고,<br>
+            지금 내 마음도 살펴보는 자기이해 검사예요.
+          </div>
+
+          <p class="intro-copy">
+            마음이 가는 도형을 고르고 자유롭게 그려보세요.<br>
+            완성된 그림을 통해
+            <strong>나의 성향</strong>과
+            <strong>요즘의 마음</strong>을
+            가볍게 살펴볼 수 있어요.
+          </p>
+
+          <button class="btn primary" id="startBtn">검사 시작하기</button>
+          <div class="meta-line">약 2~3분 · 정답 없음 · 자유롭게 그려주세요</div>
+
+          <p class="note" style="max-width:620px;margin:24px auto 0">
+            자기이해와 성찰을 위한 콘텐츠이며 전문적인 심리진단을 대신하지 않습니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-select" class="screen">
+      <div class="card section-card">
+        <div class="eyebrow">STEP 1</div>
+        <h2 class="section-title">지금 가장 마음이 가는 모양은?</h2>
+        <p class="section-desc">
+          너무 오래 생각하지 말고, 지금 눈에 들어오는 도형 하나를 골라주세요.
+        </p>
+
+        <div class="shape-grid" id="shapeGrid"></div>
+
+        <div class="selected-hint" id="selectedHint"></div>
+
+        <div class="quick" style="margin-top:18px;background:#fbfbf8">
+          <h3>검사는 이렇게 진행돼요</h3>
+          <p class="simple-flow-copy">
+            도형을 하나 고르면 화면이 다음에 그릴 도형을 하나씩 알려드려요.<br>
+            안내를 따라 편하게 그려주세요.
+          </p>
+        </div>
+
+        <div class="bottom-row" style="margin-top:22px">
+          <button class="btn ghost" id="backToIntroBtn">이전</button>
+          <button class="btn primary" id="toDrawBtn" disabled>이 도형으로 시작하기</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-draw" class="screen">
+      <div class="draw-layout">
+        <div class="card canvas-card">
+          <div class="draw-topbar">
+            <div class="phase-badge" id="phaseBadge">1 / 6</div>
+          </div>
+
+          <div class="mission">
+            <div class="mission-label">지금 해야 할 일</div>
+            <div class="mission-main" id="missionMain"></div>
+            <div class="mission-sub" id="missionSub"></div>
+          </div>
+
+          <div class="canvas-wrap" id="canvasWrap">
+            <canvas id="drawCanvas"></canvas>
+            <div class="inner-square"></div>
+            <div class="canvas-hint">마우스 또는 손가락으로 그려주세요</div>
+          </div>
+          <p class="auto-redraw-note" style="text-align:center">다시 그리고 싶다면 그림을 한 번 더 그려주세요. 이전 그림은 자동으로 지워집니다.
+          </p>
+        </div>
+
+        <aside class="side-card">
+          <div class="eyebrow">DRAWING FLOW</div>
+          <h2 class="side-title">한 단계씩 따라오면 돼요</h2>
+          <p class="side-desc">지금 안내되는 도형 하나만 그리면 됩니다.</p>
+
+          <div class="current-step">
+            <strong id="currentStepTitle"></strong>
+            <p id="currentStepDesc"></p>
+          </div>
+
+          <div class="toolbar">
+            <button id="restartBtn">처음부터 다시</button>
+          </div>
+
+          <div class="mini-list" id="miniList"></div>
+          <div class="legend"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="screen-loading" class="screen">
+      <div class="card loading">
+        <div class="spinner"></div>
+        <h2>당신이 그린 마음을 정리하고 있어요</h2>
+        <p class="section-desc" style="margin:0 auto;max-width:560px">도형의 선택, 배치, 크기와 위치를 살펴 현재의 마음에서 눈에 띄는 흐름을 정리하고
+          있어요.</p>
+      </div>
+    </section>
+
+    <section id="screen-result" class="screen">
+      <div class="free-result-shell character-result-shell">
+
+        <!-- 1. 기본 기질 -->
+        <div class="card free-result-hero character-result-hero temperament-hero">
+          <div class="temperament-character">
+            <div class="result-character-large" id="resultCharacter"></div>
+            <div class="temperament-character-name" id="temperamentName"></div>
+            <div class="free-result-theme" id="resultShapeLine"></div>
+          </div>
+
+          <div class="temperament-copy">
+            <span class="result-section-small">나의 기본 기질</span>
+            <h2 id="temperamentTitle"></h2>
+            <p id="temperamentDesc"></p>
+
+            <div class="current-type-box">
+              <span class="current-type-label">지금 그림에서 나타난 모습</span>
+              <strong id="resultTitle"></strong>
+              <div class="free-result-chips" id="resultChips"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 요즘 내 마음 -->
+        <div class="card result-mind-card">
+          <div class="result-section-head">
+            <span class="mind-leaf">♥</span>
+            <div>
+              <span class="result-section-small">지금의 마음을 조금 더 들여다보면</span>
+              <h3>요즘 내 마음</h3>
+            </div>
+          </div>
+          <div class="result-mind-copy" id="resultMind"></div>
+        </div>
+
+        <!-- 3. 그림 관찰 + 풀이 + 작은 제안 -->
+        <div class="card drawing-clue-card">
+          <div class="result-section-head">
+            <div>
+              <span class="result-section-small">내가 그린 그림을 살펴보니</span>
+              <h3>내 그림에서 눈에 띈 점</h3>
+            </div>
+          </div>
+
+          <div class="drawing-clue-content">
+            <strong class="drawing-clue-title" id="drawingClueTitle"></strong>
+            <p class="drawing-clue-text" id="drawingClueText"></p>
+
+            <div class="drawing-advice">
+              <span>이렇게 해보면 어때요?</span>
+              <p id="drawingAdvice"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 캐릭터의 토닥임 -->
+        <div class="comfort-wrap" aria-label="마음을 토닥이는 한마디">
+          <div class="result-character-small" id="comfortCharacter"></div>
+          <div class="comfort-bubble" id="comfortMessage"></div>
+        </div>
+
+        <!-- 5. 상세 결과 CTA -->
+        <div class="card detail-cta compact-detail-cta">
+          <div class="compact-detail-copy">
+            <span class="result-section-small">조금 더 알고 싶다면</span>
+            <h3>나의 마음을 좀 더 자세히 들여다보세요</h3>
+            <p>
+              다른 도형의 위치와 크기까지 함께 살펴보면
+              요즘 무엇이 가장 신경 쓰이는지,
+              지금 나에게 어떤 힘이 필요한지도
+              조금 더 자세히 알아볼 수 있어요.
+            </p>
+          </div>
+          <button class="btn primary compact-detail-btn" id="detailBtn">내 마음 더 자세히 보기</button>
+        </div>
+
+        <div class="free-result-buttons">
+          <button class="btn ghost" id="retryBtn">다시 검사하기</button>
+        </div>
+
+        <div class="free-result-footer">
+          이 결과는 그림에서 나타난 경향을 바탕으로 현재의 나를 돌아보기 위한 자기이해용 안내입니다.
+          특정 심리상태나 질환을 진단하지 않습니다.
+        </div>
+
+      </div>
+    </section>
+
   </div>
 
-  <section id="screen-intro" class="screen active">
-    <div class="hero">
-      <div class="decor a"></div>
-      <div class="decor b"></div>
-      <div class="intro-shell">
-        <h1>마음의 모양</h1>
-        <div class="subtitle">도형을 그리며 지금의 나를 살펴보세요</div>
-        <p class="intro-copy">지금 마음이 가는 모양을 고르고 자유롭게 그려보세요.<br>완성된 그림을 바탕으로 현재의 마음 흐름을 간단하게 보여드려요.</p>
-
-        <div class="shape-motif" aria-hidden="true">
-          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="15"/></svg></span>
-          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><path d="M24 8 L40 38 H8 Z"/></svg></span>
-          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><rect x="9" y="9" width="30" height="30" rx="1"/></svg></span>
-          <span class="ui-shape"><svg viewBox="0 0 48 48" focusable="false"><path d="M36 12 C31 8 17 8 13 15 C9 22 17 25 24 26 C31 27 39 30 35 37 C31 44 16 43 11 38"/></svg></span>
-        </div>
-
-        <button class="btn primary" id="startBtn">검사 시작하기</button>
-        <div class="meta-line">약 2~3분 · 정답 없음 · 자유롭게 그려주세요</div>
-
-        <p class="note" style="max-width:620px;margin:24px auto 0">
-          자기이해와 성찰을 위한 콘텐츠이며 전문적인 심리진단을 대신하지 않습니다.
-        </p>
+  <div class="draw-guide-modal" id="drawGuideModal" aria-hidden="true">
+    <div class="draw-guide-backdrop"></div>
+    <div class="draw-guide-dialog" role="dialog" aria-modal="true" aria-labelledby="drawGuideTitle">
+      <div class="draw-guide-kicker" id="drawGuideKicker">잘 그렸어요!</div>
+      <div class="draw-guide-shape" id="drawGuideShape" aria-hidden="true"></div>
+      <h2 class="draw-guide-title" id="drawGuideTitle"></h2>
+      <p class="draw-guide-desc" id="drawGuideDesc"></p>
+      <div class="draw-guide-actions">
+        <button type="button" class="btn ghost" id="drawAgainBtn">다시 그리기</button>
+        <button type="button" class="btn primary" id="drawNextBtn">다음 그림 그리기</button>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section id="screen-select" class="screen">
-    <div class="card section-card">
-      <div class="eyebrow">STEP 1</div>
-      <h2 class="section-title">지금 가장 마음이 가는 모양은?</h2>
-      <p class="section-desc">
-        너무 오래 생각하지 말고, 지금 눈에 들어오는 도형 하나를 골라주세요.
-      </p>
-
-      <div class="shape-grid" id="shapeGrid"></div>
-
-      <div class="selected-hint" id="selectedHint"></div>
-
-      <div class="quick" style="margin-top:18px;background:#fbfbf8">
-        <h3>이렇게 진행돼요</h3>
-        <ul>
-          <li>고른 도형은 3번 그려요</li>
-          <li>나머지 도형은 하나씩 그려요</li>
-          <li>화면에서 다음 도형을 바로 알려드려요</li>
-        </ul>
-      </div>
-
-      <div class="bottom-row" style="margin-top:22px">
-        <button class="btn ghost" id="backToIntroBtn">이전</button>
-        <button class="btn primary" id="toDrawBtn" disabled>이 도형으로 시작하기</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="screen-draw" class="screen">
-    <div class="draw-layout">
-      <div class="card canvas-card">
-        <div class="draw-topbar">
-          <div class="phase-badge" id="phaseBadge">1 / 6</div>
-        </div>
-
-        <div class="mission">
-          <div class="mission-label">지금 해야 할 일</div>
-          <div class="mission-main" id="missionMain"></div>
-          <div class="mission-sub" id="missionSub"></div>
-        </div>
-
-        <div class="canvas-wrap" id="canvasWrap">
-          <canvas id="drawCanvas"></canvas>
-          <div class="inner-square"></div>
-          <div class="canvas-hint">마우스 또는 손가락으로 그려주세요</div>
-        </div>
-        <div class="draw-actions">
-          <button class="save" id="saveBtn" disabled>다음</button>
-        </div>
-        <p class="auto-redraw-note" style="text-align:center">다시 그리고 싶다면 바로 새로 그려주세요. ‘다음’을 누르기 전에는 이전 그림이 자동으로 지워집니다.</p>
-      </div>
-
-      <aside class="side-card">
-        <div class="eyebrow">DRAWING FLOW</div>
-        <h2 class="side-title">한 단계씩 따라오면 돼요</h2>
-        <p class="side-desc">지금 안내되는 도형 하나만 그리면 됩니다.</p>
-
-        <div class="current-step">
-          <strong id="currentStepTitle"></strong>
-          <p id="currentStepDesc"></p>
-        </div>
-
-        <div class="toolbar">
-          <button id="restartBtn">처음부터 다시</button>
-        </div>
-
-        <div class="mini-list" id="miniList"></div>
-        <div class="legend"></div>
-      </aside>
-    </div>
-  </section>
-
-  <section id="screen-loading" class="screen">
-    <div class="card loading">
-      <div class="spinner"></div>
-      <h2>당신이 그린 마음을 정리하고 있어요</h2>
-      <p class="section-desc" style="margin:0 auto;max-width:560px">도형의 선택, 배치, 크기와 위치를 살펴 현재의 마음에서 눈에 띄는 흐름을 정리하고 있어요.</p>
-    </div>
-  </section>
-
-  <section id="screen-result" class="screen">
-    <div class="free-result-shell character-result-shell">
-      <div class="card free-result-hero character-result-hero">
-        <div class="result-kicker">당신의 지금 마음은</div>
-        <div class="result-character-large" id="resultCharacter"></div>
-        <div class="free-result-theme" id="resultShapeLine"></div>
-        <h2 id="resultTitle"></h2>
-        <div class="free-result-chips" id="resultChips"></div>
-        <p class="free-result-summary" id="resultDesc"></p>
-      </div>
-
-      <details class="card result-mind-card" open>
-        <summary>
-          <span class="mind-leaf">♥</span>
-          <strong>도형이 보여주는 지금의 마음</strong>
-          <span class="summary-arrow" aria-hidden="true">⌄</span>
-        </summary>
-        <div class="result-mind-copy" id="resultMind"></div>
-      </details>
-
-      <div class="comfort-wrap" aria-label="마음을 토닥이는 한마디">
-        <div class="result-character-small" id="comfortCharacter"></div>
-        <div class="comfort-bubble" id="comfortMessage"></div>
-      </div>
-
-      <div class="card detail-cta">
-        <div class="detail-cta-inner">
-          <div class="detail-cta-copy">
-            <strong>내 그림에 담긴 이야기를 조금 더 자세히 보고 싶다면</strong>
-            <p>2차·3차·4차 도형과 위치·크기, 현재의 강점과 가능성까지 포함한 상세결과를 확인할 수 있어요.</p>
-          </div>
-          <button class="btn ghost" id="detailBtn">상세결과 알아보기</button>
-        </div>
-      </div>
-
-      <div class="free-result-buttons">
-        <button class="btn primary" id="retryBtn">다시 검사하기</button>
-      </div>
-      <div class="free-result-footer">이 결과는 그림에서 나타난 경향을 바탕으로 현재의 나를 돌아보기 위한 성찰용 안내입니다. 특정 심리상태나 질환을 진단하지 않습니다.</div>
-    </div>
-  </section>
-</div>
-
-<script src="./js/script.js" defer></script>
+  <script src="./js/script.js" defer></script>
 </body>
+
 </html>

@@ -34,6 +34,30 @@
     s:"생각과 이해"
   };
 
+
+  const TEMPERAMENT = {
+    circle:{
+      name:"마음이",
+      title:"사람과 마음을 중요하게 여기는 기질이에요",
+      desc:"사람과의 관계를 중요하게 생각하고, 상대의 감정이나 분위기를 자연스럽게 살피는 편이에요. 가까운 사람을 잘 챙기고 마음을 나누는 데 익숙한 만큼, 때로는 내 마음보다 다른 사람의 마음을 먼저 생각할 수도 있어요."
+    },
+    triangle:{
+      name:"도전이",
+      title:"목표와 방향을 중요하게 여기는 기질이에요",
+      desc:"무엇을 할지 정하고 앞으로 나아갈 때 힘이 생기는 편이에요. 목표가 생기면 계획을 세우고 움직이려는 힘이 있고, 결과를 만들어내는 과정에서 만족을 느낄 수 있어요. 다만 방향이 분명한 만큼 속도가 느려지면 답답하게 느껴질 수도 있어요."
+    },
+    square:{
+      name:"든든이",
+      title:"안정과 책임을 중요하게 여기는 기질이에요",
+      desc:"맡은 일은 끝까지 해내고, 약속이나 기준을 지키려는 마음이 큰 편이에요. 주변에서 믿고 맡길 수 있는 사람으로 보일 수 있고, 익숙한 질서와 안정된 흐름 속에서 편안함을 느껴요. 다만 변화가 갑작스럽거나 계획이 달라지면 부담을 느낄 수도 있어요."
+    },
+    s:{
+      name:"생각이",
+      title:"생각하고 이해하는 것을 중요하게 여기는 기질이에요",
+      desc:"무언가를 바로 결정하기보다 충분히 생각하고 이해한 뒤 움직이려는 편이에요. 궁금한 것이 생기면 깊이 알아보고, 이유와 의미를 찾는 데 익숙해요. 생각이 깊은 만큼 때로는 행동보다 고민이 먼저 길어질 수도 있어요."
+    }
+  };
+
   const FREE_TYPE_NAME = {
     separate:{
       circle:"속마음 접어두는형",
@@ -161,6 +185,46 @@
     }
   };
 
+
+  const CURRENT_MIND = {
+    separate:{
+      circle:"요즘은 사람들과 잘 지내고 있으면서도 마음 한쪽에서는 조금 거리를 두고 싶은 마음이 있을 수 있어요. 부탁을 받거나 분위기를 맞춰야 할 때 내 마음보다 다른 사람의 마음을 먼저 생각했을 수도 있고요. 겉으로는 괜찮아 보여도 혼자 있을 때는 ‘나는 사실 어떻게 하고 싶은 걸까?’ 하는 생각이 들었을 수도 있어요.",
+      triangle:"요즘은 하고 싶은 일이나 이루고 싶은 목표는 있는데, 막상 시작하려고 하면 조금 망설여질 수 있어요. 아직 준비가 부족한 것 같거나 잘할 수 있을지 걱정돼서 시작을 미루고 있었을 수도 있고요. 마음속에서는 이미 여러 번 시작을 준비하고 있었을지도 몰라요.",
+      square:"요즘은 해야 할 일이 있다는 건 알지만 막상 시작하려면 조금 부담스럽게 느껴질 수 있어요. 잘해야 한다는 마음이 있어서 오히려 시작을 미루고 있었을 수도 있고요. 마음속에서는 계속 신경 쓰고 있지만 몸이 바로 따라가지 않는 느낌일 수도 있어요.",
+      s:"요즘은 머릿속에 하고 싶은 말이나 생각이 많은데 아직 밖으로 꺼내지 않고 있을 수 있어요. 충분히 정리된 뒤에 말하고 싶어서 생각을 오래 품고 있었을 수도 있고요. 말하기 전에 ‘이게 맞을까?’ 하고 한 번 더 생각하는 일이 많았을 수 있어요."
+    },
+    overlap:{
+      circle:"요즘은 누군가를 생각하면 좋은 마음도 들고, 한편으로는 서운한 마음도 함께 있는 것 같아요. 관계를 소중하게 생각하다 보니 상대의 말이나 반응이 평소보다 더 신경 쓰일 수도 있어요. 여러 감정이 마음속에서 왔다 갔다 하니까 나도 내 마음을 정확히 모르겠다고 느낄 때가 있을 수 있어요.",
+      triangle:"요즘은 하고 싶은 것도 많고 해야 할 일도 많아서 마음이 조금 바쁠 수 있어요. 하나를 하면서도 다른 일이 계속 떠오르고, 무엇부터 해야 할지 헷갈릴 때도 있을 수 있어요. 마음은 앞으로 가고 싶은데 방향이 여러 갈래로 나뉘어 있는 느낌일 수 있어요.",
+      square:"요즘은 내가 챙겨야 할 일이 너무 많다고 느껴질 수 있어요. 내 일뿐 아니라 주변 사람의 일까지 자연스럽게 신경 쓰고 있었을 수도 있고요. 쉬고 있어도 해야 할 일이 계속 떠올라서 마음이 제대로 쉬지 못했을 수도 있어요.",
+      s:"요즘은 하나의 생각이 또 다른 생각으로 이어지면서 머릿속이 조금 복잡했을 수 있어요. 이미 지나간 일을 다시 떠올리거나, 결정한 뒤에도 ‘다른 방법이 더 좋았을까?’ 하고 계속 생각했을 수도 있고요. 생각이 쉴 틈 없이 이어지는 느낌이었을 수 있어요."
+    },
+    immerse:{
+      circle:"요즘은 한 사람이나 한 관계가 자꾸 마음에 떠오를 수 있어요. 연락을 기다리거나 지나간 대화를 다시 생각하면서 상대의 마음이 어떤지 궁금해질 수도 있고요. 그만큼 그 관계에 마음을 많이 쓰고 있다는 뜻일 수 있어요.",
+      triangle:"요즘은 꼭 이루고 싶은 목표 하나에 마음과 에너지를 많이 쓰고 있는 것 같아요. 그만큼 집중력이 높아지고 열심히 움직이고 있을 수도 있어요. 다만 목표에 마음이 많이 가 있다 보니 쉬는 시간이나 주변의 다른 일들은 잠시 뒤로 밀려 있을 수도 있어요.",
+      square:"요즘은 맡은 일이나 책임 하나를 끝까지 붙잡고 있는 것 같아요. 힘들어도 ‘이것만은 끝내야 해요’ 하는 마음으로 버티고 있었을 수도 있어요. 다른 사람이 도와준다고 해도 내가 직접 마무리해야 마음이 놓이는 때일 수도 있고요.",
+      s:"요즘은 한 가지 주제나 생각에 깊이 빠져 있을 수 있어요. 궁금한 것이 생기면 충분히 이해할 때까지 계속 알아보고 싶어질 수도 있고요. 깊이 생각하는 동안 다른 일들이 잠시 뒤로 밀릴 만큼 마음이 한곳에 집중되어 있을 수 있어요."
+    },
+    attach:{
+      circle:"요즘은 상대의 표정이나 말투처럼 작은 변화도 평소보다 더 잘 느껴질 수 있어요. ‘혹시 내가 뭔가 잘못했나?’ 하고 생각하거나, 상대가 불편할까 봐 하고 싶은 말을 한 번 더 참았을 수도 있어요. 다른 사람의 마음을 많이 살피느라 정작 내 마음은 뒤로 밀렸을 수도 있고요.",
+      triangle:"요즘은 중요한 선택이나 결정을 앞두고 여러 가지를 계속 비교하고 있을 수 있어요. 충분히 알아봤는데도 ‘혹시 더 좋은 방법이 있지 않을까?’ 하는 생각이 들 수도 있고요. 잘 선택하고 싶은 마음이 큰 만큼 쉽게 결정을 내리지 못하고 있었을 수도 있어요.",
+      square:"요즘은 잘해내고 싶은 마음이 커서 준비한 것도 다시 확인하고, 혹시 빠진 것은 없는지 여러 번 살펴보고 있을 수 있어요. 충분히 준비했는데도 마음이 쉽게 놓이지 않았을 수도 있고요. 작은 실수라도 생기지 않게 신경을 많이 쓰고 있는 것 같아요.",
+      s:"요즘은 작은 부분까지 놓치고 싶지 않아서 여러 가지를 꼼꼼하게 살펴보고 있을 수 있어요. 중요한 결정을 앞두고 정보나 조건을 계속 확인했을 수도 있고요. 충분히 알아봤는데도 마음속에서는 ‘조금만 더 확인해볼까?’ 하는 생각이 남아 있을 수 있어요."
+    },
+    align:{
+      circle:"요즘은 어떤 사람과 가까이 지내고 싶은지, 어떤 관계가 나에게 편안한지가 비교적 분명한 것 같아요. 내가 중요하게 생각하는 관계의 기준도 조금씩 또렷해지고 있을 수 있어요. 그래서 예전보다 내 마음을 표현하는 것도 자연스러워졌을 수 있어요.",
+      triangle:"요즘은 내가 무엇을 하고 싶은지, 어디로 가고 싶은지가 비교적 또렷한 것 같아요. 목표가 보이면 계획을 세우고 움직이는 것도 자연스럽게 느껴질 수 있어요. 마음속에 방향이 잡혀 있어서 예전보다 결정이 빠르게 느껴질 수도 있어요.",
+      square:"요즘은 해야 할 일과 내가 지켜야 할 기준이 비교적 분명한 것 같아요. 계획대로 하루를 보내거나 약속을 지킬 때 마음이 편안하게 느껴질 수 있어요. 내가 해야 할 몫을 꾸준히 해내고 있다는 느낌도 있을 수 있어요.",
+      s:"요즘은 내가 무엇을 중요하게 생각하는지, 어떤 기준으로 판단하는지가 비교적 또렷한 것 같아요. 내 생각을 말할 때도 왜 그렇게 생각하는지 설명하기가 편해졌을 수 있어요. 마음속에 나만의 기준이 잘 자리 잡혀 있는 시기일 수 있어요."
+    },
+    rare:{
+      circle:"요즘은 예전과는 조금 다른 방식으로 사람들과 지내고 싶은 마음이 생겼을 수 있어요. 예전에는 괜찮았던 관계가 조금 피곤하게 느껴지거나, 더 편안한 거리와 관계를 원하게 되었을 수도 있고요. 내 마음에 맞는 새로운 관계 방식을 찾고 있는 시기일 수 있어요.",
+      triangle:"요즘은 지금까지 생각해온 길 말고 다른 방향이 자꾸 눈에 들어올 수 있어요. 예전에는 중요했던 목표가 조금 덜 끌리거나 새로운 일을 해보고 싶은 마음이 생겼을 수도 있고요. 아직 정확한 계획은 없어도 마음은 새로운 쪽을 바라보고 있는 것 같아요.",
+      square:"요즘은 반복되는 일상이나 익숙한 방식이 조금 답답하게 느껴질 수 있어요. 뭔가 새로운 변화를 주고 싶으면서도 익숙한 것을 바꾸는 건 조금 불안하게 느껴질 수도 있고요. 편안함도 필요하지만 새로운 바람도 함께 원하는 마음일 수 있어요.",
+      s:"요즘은 익숙한 방법보다 새로운 방법이나 다른 생각이 자꾸 떠오를 수 있어요. 남들은 그냥 지나가는 부분에서도 ‘이렇게 해보면 어떨까?’ 하는 생각이 생길 수도 있고요. 아직 구체적인 모습은 아니더라도 마음속에서는 새로운 가능성을 계속 그리고 있는 것 같아요."
+    }
+  };
+
   const SECONDARY_TEXT = {
     circle:["사람과 관계","요즘은 일이나 계획 자체보다 사람과의 관계, 상대의 반응, 감정적인 부분이 더 신경 쓰일 수 있어요. 가까운 사람과 잘 지내고 싶은 마음이 커졌거나, 누군가와의 관계를 다시 생각하고 있을 수도 있습니다."],
     triangle:["목표와 앞으로의 방향","요즘은 앞으로 무엇을 할지, 어떤 결과를 만들지, 다음에는 어디로 가야 할지를 많이 생각하고 있을 수 있어요. 새로운 계획을 세우거나 미뤄둔 일을 시작하고 싶은 마음이 커질 수도 있습니다."],
@@ -223,6 +287,50 @@
   };
 
   const shapeIcon = key => `<span class="ui-shape" aria-hidden="true">${SHAPE_SVG[key]}</span>`;
+
+  const drawGuideModal = $("#drawGuideModal");
+  const drawGuideKicker = $("#drawGuideKicker");
+  const drawGuideShape = $("#drawGuideShape");
+  const drawGuideTitle = $("#drawGuideTitle");
+  const drawGuideDesc = $("#drawGuideDesc");
+  const drawAgainBtn = $("#drawAgainBtn");
+  const drawNextBtn = $("#drawNextBtn");
+
+  function openAfterDrawModal() {
+    if (!state.currentStrokes.flat().length) return;
+
+    const m = getMetrics(state.currentStrokes);
+    if (!m || Math.max(m.w, m.h) < 18) return;
+
+    const isLast = state.currentIndex === state.sequence.length - 1;
+
+    if (isLast) {
+      drawGuideKicker.textContent = "모두 그렸어요!";
+      drawGuideShape.innerHTML = shapeIcon(state.sequence[state.currentIndex]);
+      drawGuideTitle.textContent = "마지막 그림까지 잘 그렸어요";
+      drawGuideDesc.textContent = "이제 그림을 바탕으로 지금의 마음을 정리해볼게요.";
+      drawNextBtn.textContent = "결과 보기";
+    } else {
+      const nextKey = state.sequence[state.currentIndex + 1];
+      drawGuideKicker.textContent = "잘 그렸어요!";
+      drawGuideShape.innerHTML = shapeIcon(nextKey);
+      drawGuideTitle.textContent = `다음은 ${SHAPES[nextKey].name}를 그려주세요`;
+      drawGuideDesc.textContent = "크기와 위치는 마음 가는 대로 자유롭게 그려주세요.";
+      drawNextBtn.textContent = "다음 그림 그리기";
+    }
+
+    drawGuideModal.classList.add("on");
+    drawGuideModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    requestAnimationFrame(() => drawNextBtn.focus());
+  }
+
+  function closeAfterDrawModal() {
+    drawGuideModal.classList.remove("on");
+    drawGuideModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  }
+
   $("#brandShape").innerHTML = shapeIcon("circle");
 
   const shapeGrid = $("#shapeGrid");
@@ -299,9 +407,14 @@
   });
 
   function endDraw() {
+    if (!state.isDrawing) return;
     state.isDrawing = false;
     state.currentStroke = null;
     syncSaveBtn();
+
+    if (state.currentStrokes.flat().length) {
+      requestAnimationFrame(openAfterDrawModal);
+    }
   }
   canvas.addEventListener("pointerup", endDraw);
   canvas.addEventListener("pointercancel", endDraw);
@@ -325,7 +438,8 @@
   }
 
   function syncSaveBtn() {
-    $("#saveBtn").disabled = !state.currentStrokes.flat().length;
+    const btn = $("#saveBtn");
+    if (btn) btn.disabled = !state.currentStrokes.flat().length;
   }
 
 
@@ -357,14 +471,12 @@
     };
   }
 
-  $("#saveBtn").onclick = () => {
-    if (!state.currentStrokes.flat().length) {
-      alert("먼저 도형을 그려주세요.");
-      return;
-    }
+  function commitCurrentDrawing() {
+    if (!state.currentStrokes.flat().length) return;
+
     const m = getMetrics(state.currentStrokes);
-    if (Math.max(m.w,m.h) < 18) {
-      alert("도형을 조금 더 크게 그려주세요.");
+    if (!m || Math.max(m.w, m.h) < 18) {
+      closeAfterDrawModal();
       return;
     }
 
@@ -377,6 +489,8 @@
     state.currentStrokes = [];
     state.currentIndex++;
 
+    closeAfterDrawModal();
+
     if (state.currentIndex >= state.sequence.length) {
       show("loading", 85, "결과 분석 중");
       setTimeout(() => {
@@ -388,29 +502,28 @@
       redraw();
       syncSaveBtn();
     }
-  };
+  }
+
+  drawAgainBtn.addEventListener("click", () => {
+    closeAfterDrawModal();
+    state.currentStrokes = [];
+    redraw();
+    syncSaveBtn();
+  });
+
+  drawNextBtn.addEventListener("click", commitCurrentDrawing);
 
   function renderDrawUI() {
     const key = state.sequence[state.currentIndex];
     const total = state.sequence.length;
     const current = state.currentIndex + 1;
-    const chosenPhase = state.currentIndex < 3;
-    const chosenCount = state.currentIndex + 1;
     const overallPct = 40 + Math.round((state.currentIndex / total) * 40);
 
     updateProgress(overallPct, "도형 그리기");
     $("#phaseBadge").textContent = `${current} / ${total}`;
 
-    if (chosenPhase) {
-      const wording = chosenCount === 1 ? "하나" : chosenCount === 2 ? "한 번 더" : "마지막으로 하나 더";
-      $("#missionMain").innerHTML = `${shapeIcon(key)}<span>를 ${wording} 그려주세요</span>`;
-      $("#missionSub").textContent = chosenCount === 1
-        ? "크기와 위치는 마음 가는 대로 자유롭게 그려주세요."
-        : "앞에서 그린 모양과 겹쳐도, 떨어져 있어도 괜찮아요.";
-    } else {
-      $("#missionMain").innerHTML = `${shapeIcon(key)}<span>를 하나 그려주세요</span>`;
-      $("#missionSub").textContent = "지금 마음 가는 위치에 자유롭게 그려주세요.";
-    }
+    $("#missionMain").innerHTML = `${shapeIcon(key)}<span>${SHAPES[key].name}를 하나 그려주세요</span>`;
+    $("#missionSub").textContent = "크기와 위치는 마음 가는 대로 자유롭게 그려주세요.";
 
     $("#currentStepTitle").textContent = `전체 진행 ${current} / ${total}`;
     $("#currentStepDesc").textContent = "도형을 다 그렸다면 ‘다음’을 눌러주세요.";
@@ -533,42 +646,121 @@
 
   const COMFORT = {
     separate:{
-      circle:"말하지 못한 마음도 있었구나. 혼자 오래 담아두느라 애썼겠다.",
-      triangle:"아직 시작 전이지만 마음속에서는 참 많이 준비했구나.",
-      square:"조금 천천히 움직여도 괜찮아. 너만의 속도가 있는 거니까.",
-      s:"꺼내지 못한 생각을 오래 품고 있었구나. 혼자 많이 생각했겠다."
+      circle:"말하지 못한 마음도 있었겠어요. 혼자 오래 담아두느라 많이 애쓰셨겠어요.",
+      triangle:"아직 시작하지 않았어도 마음속에서는 참 많이 준비하고 있었겠어요.",
+      square:"조금 천천히 움직이고 있었던 거군요. 그동안 마음속에서는 계속 신경 쓰고 있었겠어요.",
+      s:"꺼내지 못한 생각을 오래 품고 있었군요. 혼자 참 많이 생각하셨겠어요."
     },
     overlap:{
-      circle:"마음이 여러 갈래로 엉켜 있었구나. 많이 복잡했겠다.",
-      triangle:"하고 싶은 게 정말 많구나. 마음속 에너지가 가득한가 봐.",
-      square:"참 많은 걸 챙겨왔구나. 정말 고생 많았어.",
-      s:"머릿속이 참 쉴 틈이 없었구나. 많이 지쳤겠다."
+      circle:"여러 마음이 한꺼번에 섞여 있었군요. 마음이 참 복잡했겠어요.",
+      triangle:"하고 싶은 것도, 해야 할 것도 많았군요. 마음이 쉴 틈 없이 바빴겠어요.",
+      square:"참 많은 것을 챙기고 있었군요. 그동안 정말 많이 애쓰셨어요.",
+      s:"머릿속이 참 쉴 틈이 없었겠어요. 생각하느라 많이 지치셨을 수도 있어요."
     },
     immerse:{
-      circle:"그 사람에게 마음을 참 많이 썼구나. 그만큼 진심이었나 봐.",
-      triangle:"정말 열심히 달려왔구나. 여기까지 온 것도 대단해.",
-      square:"끝까지 놓지 않고 버텨왔구나. 참 애썼다.",
-      s:"쉽게 지나치지 않고 오래 바라봤구나. 참 깊이 생각하는 사람이네."
+      circle:"그 사람이나 관계에 마음을 참 많이 쓰고 있었군요. 그만큼 소중한 마음이었나 봐요.",
+      triangle:"한 가지 목표를 향해 정말 열심히 달려오셨군요. 여기까지 온 것도 충분히 대단해요.",
+      square:"끝까지 놓지 않고 책임지려고 했군요. 참 많이 애쓰셨어요.",
+      s:"쉽게 지나치지 않고 오래 바라보고 있었군요. 그만큼 깊이 생각하고 계셨던 것 같아요."
     },
     attach:{
-      circle:"참 많이 살피고 있었구나. 신경 쓰느라 마음이 바빴겠다.",
-      triangle:"쉽게 정하지 못한 만큼 많이 고민했구나. 그만큼 소중한 선택이었나 봐.",
-      square:"잘해내고 싶어서 여러 번 살펴봤구나. 마음을 많이 썼겠다.",
-      s:"하나라도 놓치지 않으려고 참 많이 들여다봤구나."
+      circle:"다른 사람의 마음을 참 많이 살피고 있었군요. 신경 쓰느라 내 마음도 많이 바빴겠어요.",
+      triangle:"잘 선택하고 싶어서 오래 고민하고 있었군요. 그만큼 중요한 일이었나 봐요.",
+      square:"잘해내고 싶은 마음으로 여러 번 살펴봤군요. 그만큼 마음을 많이 쓰셨겠어요.",
+      s:"하나라도 놓치지 않으려고 참 많이 들여다보고 있었군요. 생각하느라 애쓰셨어요."
     },
     align:{
-      circle:"내 마음이 원하는 관계를 잘 알고 있구나. 그 마음이 참 단단해 보여.",
-      triangle:"내가 어디로 가고 싶은지 잘 알고 있구나. 참 든든해 보여.",
-      square:"하루하루 묵묵히 잘 지켜왔구나. 그 꾸준함이 참 든든해.",
-      s:"내 생각을 이렇게 잘 알고 있구나. 마음속 기준이 참 또렷하네."
+      circle:"내가 원하는 관계가 무엇인지 조금씩 더 잘 알아가고 계신 것 같아요.",
+      triangle:"내가 어디로 가고 싶은지 마음속 방향이 또렷해지고 있군요.",
+      square:"하루하루 맡은 자리를 묵묵히 지켜오셨군요. 그 꾸준함이 참 든든해 보여요.",
+      s:"내 생각과 기준을 잘 알고 계시는군요. 마음속 중심이 또렷해 보이는 것 같아요."
     },
     rare:{
-      circle:"이제는 조금 다르게 지내고 싶은 거구나. 마음도 변할 수 있어.",
-      triangle:"새로운 길이 자꾸 눈에 들어오는구나. 마음이 다시 움직이고 있나 봐.",
-      square:"매일 같은 방식이 조금 답답했구나. 마음에도 새로운 바람이 필요한가 봐.",
-      s:"다른 방법을 계속 떠올리고 있었구나. 새로운 걸 보는 눈이 있네."
+      circle:"이전과는 조금 다른 관계를 원하고 있었군요. 마음이 변하는 것도 자연스러운 일이에요.",
+      triangle:"새로운 길이 자꾸 눈에 들어오고 있었군요. 마음이 다시 움직이고 있는 것 같아요.",
+      square:"반복되는 일상이 조금 답답하게 느껴졌군요. 새로운 변화를 바라는 마음도 있었나 봐요.",
+      s:"다른 방법과 새로운 생각이 자꾸 떠오르고 있었군요. 새로운 가능성을 보고 계신 것 같아요."
     }
   };
+
+
+  function getDrawingClue(){
+    const all = state.saved;
+
+    if(!all || all.length < 2){
+      return {
+        title:"그림을 조금 더 살펴보고 있어요",
+        text:"이번 그림에서는 한 가지 특징만으로 의미를 정하기보다 전체 모습을 함께 보는 것이 좋아 보여요.",
+        advice:"오늘 내 마음에서 가장 신경 쓰이는 것이 무엇인지 한 가지만 떠올려보세요."
+      };
+    }
+
+    const centers = all.map(item => ({
+      x:item.metrics.cx,
+      y:item.metrics.cy
+    }));
+
+    const distances = [];
+    for(let i=0;i<centers.length;i++){
+      for(let j=i+1;j<centers.length;j++){
+        const dx = centers[i].x - centers[j].x;
+        const dy = centers[i].y - centers[j].y;
+        distances.push(Math.sqrt(dx*dx + dy*dy));
+      }
+    }
+
+    const avgDistance = distances.reduce((sum,value)=>sum+value,0) / distances.length;
+    const rect = wrap.getBoundingClientRect();
+    const canvasDiagonal = Math.sqrt(rect.width*rect.width + rect.height*rect.height);
+    const distanceRatio = avgDistance / canvasDiagonal;
+
+    const sizes = all.map(item => item.metrics.size);
+    const avgSize = sizes.reduce((sum,value)=>sum+value,0) / sizes.length;
+    const biggestSize = Math.max(...sizes);
+    const biggestRatio = biggestSize / avgSize;
+
+    const avgX = all.reduce((sum,item)=>sum+item.metrics.nx,0) / all.length;
+    const avgY = all.reduce((sum,item)=>sum+item.metrics.ny,0) / all.length;
+    const isSideHeavy = avgX < 0.36 || avgX > 0.64 || avgY < 0.36 || avgY > 0.64;
+
+    if(biggestRatio > 1.45){
+      return {
+        title:"눈에 띄게 크게 그린 도형이 있어요",
+        text:"다른 도형보다 크게 그려진 모양은 지금 내 마음에서 그 부분이 조금 더 크게 느껴지고 있음을 떠올려볼 수 있어요. 요즘 유난히 신경 쓰이거나 자주 생각나는 일이 있었는지 돌아봐도 좋아요.",
+        advice:"요즘 내 마음을 가장 많이 차지하고 있는 것이 무엇인지 한 가지 적어보세요. 그것이 나에게 힘이 되고 있는지, 조금 부담이 되고 있는지도 함께 생각해보세요."
+      };
+    }
+
+    if(distanceRatio < 0.18){
+      return {
+        title:"도형들이 서로 가까이 모여 있어요",
+        text:"요즘 여러 생각이나 해야 할 일, 사람과의 관계가 서로 연결되어 느껴지고 있을 수 있어요. 하나를 생각하면 자연스럽게 다른 일까지 함께 떠오르는 마음일 수도 있어요.",
+        advice:"지금 가장 신경 쓰이는 것 한 가지만 먼저 골라보세요. 나머지는 잠시 내려놓고 한 가지 마음부터 차근차근 정리해보는 것도 좋아요."
+      };
+    }
+
+    if(distanceRatio > 0.34){
+      return {
+        title:"도형들이 서로 조금 떨어져 있어요",
+        text:"지금 마음속에 있는 여러 생각이나 감정을 서로 따로 바라보고 있을 수 있어요. 사람의 일, 해야 할 일, 내 생각처럼 각각의 문제를 나누어 정리하고 싶은 마음일 수도 있어요.",
+        advice:"요즘 마음에 걸리는 일들을 하나씩 적어보고, 서로 연결된 일인지 따로 해결해도 되는 일인지 나눠보세요."
+      };
+    }
+
+    if(isSideHeavy){
+      return {
+        title:"도형들이 한쪽에 조금 더 모여 있어요",
+        text:"요즘 마음이 특정한 일이나 상황 쪽으로 조금 더 기울어 있을 수 있어요. 다른 일도 있지만 유난히 자주 떠오르거나 마음이 가는 부분이 있을지도 몰라요.",
+        advice:"요즘 가장 자주 떠오르는 사람이나 일, 고민이 무엇인지 한번 적어보세요. 내가 왜 그 부분을 계속 생각하고 있는지도 함께 살펴보면 좋아요."
+      };
+    }
+
+    return {
+      title:"전체적으로 고르게 그려졌어요",
+      text:"이번 그림에서는 한 가지 특징이 아주 강하게 나타나기보다 여러 도형이 비교적 고르게 보이고 있어요. 지금은 한 부분에만 마음이 쏠리기보다 여러 가지를 함께 살펴보고 있는 시기일 수 있어요.",
+      advice:"지금 내 생활에서 사람, 해야 할 일, 목표, 생각 중 무엇을 조금 더 돌보고 싶은지 하나만 골라보세요."
+    };
+  }
 
   const CHARACTER_COLORS = {
     circle:{fill:"#F7C9C6",soft:"#FFF0ED",line:"#5B302A",accent:"#E98179"},
@@ -594,19 +786,52 @@
     return `<svg class="result-character-svg" width="${size}" height="${size}" viewBox="0 0 180 160" role="img" aria-label="${FREE_THEME[shape]} 캐릭터">${sparkle}${body}${face}${arms}${heart}${feet}</svg>`;
   }
 
+
+  function renderIntroCharacters(){
+    const wrap = $("#introCharacters");
+    if (!wrap) return;
+
+    const characters = [
+      {shape:"circle", name:"마음이", cls:"char-heart"},
+      {shape:"triangle", name:"도전이", cls:"char-challenge"},
+      {shape:"square", name:"든든이", cls:"char-steady"},
+      {shape:"s", name:"생각이", cls:"char-think"}
+    ];
+
+    wrap.innerHTML = characters.map(ch => `
+      <div class="intro-character ${ch.cls}">
+        <div class="intro-character-visual">
+          ${characterSvg(ch.shape, "intro", true)}
+        </div>
+        <span class="intro-character-name">${ch.name}</span>
+      </div>
+    `).join("");
+  }
+
+  renderIntroCharacters();
+
   function buildResult(){
     const primaryItems=state.saved.slice(0,3);
     const pattern=classifyPattern(primaryItems);
     const primary=state.primary;
-    const c=CONTENT[pattern][primary];
+    const temperament=TEMPERAMENT[primary];
+    const clue=getDrawingClue();
 
     $("#resultCharacter").innerHTML=characterSvg(primary, pattern, false);
     $("#comfortCharacter").innerHTML=characterSvg(primary, pattern, true);
+
+    $("#temperamentName").textContent=temperament.name;
+    $("#temperamentTitle").textContent=temperament.title;
+    $("#temperamentDesc").textContent=temperament.desc;
+
     $("#resultShapeLine").textContent=FREE_THEME[primary];
     $("#resultTitle").textContent=FREE_TYPE_NAME[pattern][primary];
-    $("#resultDesc").textContent=shortFreeDesc(c.desc);
-    $("#resultMind").textContent=currentMindDesc(c.desc);
+    $("#resultMind").textContent=CURRENT_MIND[pattern][primary];
     $("#comfortMessage").textContent=COMFORT[pattern][primary];
+
+    $("#drawingClueTitle").textContent=clue.title;
+    $("#drawingClueText").textContent=clue.text;
+    $("#drawingAdvice").textContent=clue.advice;
 
     const chips=$("#resultChips");
     chips.innerHTML="";
